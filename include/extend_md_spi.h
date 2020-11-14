@@ -8,12 +8,13 @@ class extend_md_spi :public CThostFtdcMdSpi{
 	public: extend_md_spi(CThostFtdcMdApi* api);	
 	//前端链接函
 	void OnFrontConnected();
-	//认证响应函数
-	void OnRspAuthenticate(CThostFtdcRspAuthenticateField *pRspAuthenticateField, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	//登录响应函数
 	void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
-
-
+	//订阅响应函数
+	void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+	//订阅信息获取
+	void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData);
+	
 	//Getter and Setter
 	void setTapi(CThostFtdcMdApi* api){
 		this->tapi=api;

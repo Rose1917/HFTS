@@ -54,9 +54,10 @@ int main(){
 	trade_api->Init();
 	market_api->Init();
 	
-	sleep(2);
-	//trade_api->Join();
-	menu_view();
+	//sleep(2);
+	trade_api->Join();
+	market_api->Join();
+	//menu_view();
 	//menu(trade_api,trade_spi,market_api,market_spi);
 	cout<<"The version info:"<<trade_api->GetApiVersion()<<endl;
 	cout<<"The trading day:"<<trade_api->GetTradingDay()<<endl;
