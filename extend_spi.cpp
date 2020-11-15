@@ -21,6 +21,7 @@ void extend_spi::OnFrontConnected(){
 }
 //认证结果回调函数
 void extend_spi::OnRspAuthenticate(CThostFtdcRspAuthenticateField *rsp_auth_field, CThostFtdcRspInfoField *error_info, int nRequestID, bool bIsLast) {
+	#ifdef DEBUG
 	log_info("Authenticate Response:");
 	log_str("BrokerID:",rsp_auth_field->BrokerID);
 	log_str("UserID:",rsp_auth_field->UserID);
@@ -29,7 +30,7 @@ void extend_spi::OnRspAuthenticate(CThostFtdcRspAuthenticateField *rsp_auth_fiel
 	log_str("AppType:");log_str(rsp_auth_field->AppType);
 	log_str("ErrorID");log_str(error_info->ErrorID);
 	log_str("ErrorMsg",error_info->ErrorMsg);	
-
+	#endif
 	if(!error_info->ErrorID){
 		log_info("Authentication Success.");
 		log_info("Now Signing in...");
@@ -43,11 +44,13 @@ void extend_spi::OnRspAuthenticate(CThostFtdcRspAuthenticateField *rsp_auth_fiel
 }
 //登录结果函数
 void extend_spi::OnRspUserLogin(CThostFtdcRspUserLoginField *rsp_login_field, CThostFtdcRspInfoField *error_info, int nRequestID, bool bIsLast){
+	#ifdef DEBUG
 	log_info("Login Response:");
 	log_str("Trading Day:",rsp_login_field->TradingDay);
 	log_str("SessionID:");log_str(rsp_login_field->SessionID);
 	log_str("ErrorID");log_str(error_info->ErrorID);
 	log_str("ErrorMsg",error_info->ErrorMsg);	
+	#endif
 	if(!error_info->ErrorID){
 		log_info("Login Success");
 	}

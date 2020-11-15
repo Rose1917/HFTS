@@ -1,6 +1,7 @@
 #include "include/common.h"
+#define PRICE_MAX_LEN 20
 using namespace std;
-char* subID[]={"au1912","IC1909","i2001","TA001","ag2012"};
+char* subID[]={"fu2012","hc2101","zn2011","sn2011","ag2110"};
 extend_md_spi::extend_md_spi(CThostFtdcMdApi* api){
 	setTapi(api);
 }
@@ -18,6 +19,7 @@ void extend_md_spi::OnFrontConnected(){
 
 //登录结果函数
 void extend_md_spi::OnRspUserLogin(CThostFtdcRspUserLoginField *rsp_login_field, CThostFtdcRspInfoField *error_info, int nRequestID, bool bIsLast){
+	#ifdef DEBUG
 	log_info("Market login response:");
 	log_str("SessionID:");log_str(rsp_login_field->SessionID);
 	log_str("System Name:");log_str(rsp_login_field->SystemName);
@@ -26,21 +28,46 @@ void extend_md_spi::OnRspUserLogin(CThostFtdcRspUserLoginField *rsp_login_field,
 	log_str("User ID:");log_str(rsp_login_field->UserID);
 	log_str("ErrorID:");log_str(error_info->ErrorID);
 	log_str("ErrorMsg:",error_info->ErrorMsg);	
+	#endif
 	if(!error_info->ErrorID){
 		log_info("Market Login Success");
 		this->getTapi()->SubscribeMarketData(subID,sizeof(subID)/sizeof(char*));
 	}
 }
 void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
-	log_error("Market info received\n");
-	log_str("Last Price:",GREEN_STR);
-	printf("%f\n",data->LastPrice);
+	log_error("Market info received");
+
+	/*
+	log_str("ExchangeID:",data->ExchangeID,GREEN_STR,1);
+	log_str("Exchange Instance ID:",data->ExchangeInstID,GREEN_STR,1);
+	*/
+	log_str("Instrument ID:",data->InstrumentID,GREEN_STR,1);
+	log_str("Trading day:",data->TradingDay,GREEN_STR,1);
+	log_str("Action day:",data->ActionDay,GREEN_STR,1);
+	log_str("Last Price:",double2c(data->LastPrice),GREEN_STR,1);
+	log_str("Ask Price:",double2c(data->AskPrice1),GREEN_STR,1);
+	log_str("Bid Price:",double2c(data->BidPrice1),GREEN_STR,1);
+	
+	//log_str("")
+	//data->TradingDay
+	
+
+
+	
+	//printf("%f\n",data->LastPrice);
 	
 	
 }
 void extend_md_spi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	#ifdef DEBUG
 	log_info("Subscribtion responce:");
 	log_str("InstrumentID=");log_str(pSpecificInstrument->InstrumentID);
 	log_str("ErrorID:");log_str(pRspInfo->ErrorID);
 	log_str("Error Message:",pRspInfo->ErrorMsg);
+	#endif
+	if(!pRspInfo->ErrorMsg)
+	{
+		log_str("InstrumentID=",pSpecificInstrument->InstrumentID);
+		log_str("Subscribtion success.");
+	}
 }

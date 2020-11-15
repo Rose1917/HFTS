@@ -3,7 +3,7 @@
 //Print the string with color.
 int log_str(char* str,STR_COLOR color,int tab_level)
 {
-    if(!tab_level)print_tab(tab_level);
+    if(tab_level)print_tab(tab_level);
     switch (color){
         case RED_STR:
             printf(RED "%s" COLOR_NONE,str);
@@ -29,7 +29,7 @@ int log_str(char* str,STR_COLOR color,int tab_level)
 }
 int log_str(char* str1,char* str2,STR_COLOR color,int tab_level)
 {
-    if(!tab_level)print_tab(tab_level);
+    if(tab_level)print_tab(tab_level);
     switch (color){
         case RED_STR:
             printf(RED "%s %s" COLOR_NONE,str1,str2);
@@ -55,7 +55,7 @@ int log_str(char* str1,char* str2,STR_COLOR color,int tab_level)
 }
 int log_str(int str,STR_COLOR color,int tab_level)
 {
-    if(!tab_level)print_tab(tab_level);
+    if(tab_level)print_tab(tab_level);
     switch (color){
         case RED_STR:
             printf(RED "%d" COLOR_NONE,str);
@@ -81,7 +81,7 @@ int log_str(int str,STR_COLOR color,int tab_level)
 }
 int log_str(char str,STR_COLOR color,int tab_level)
 {
-    if(!tab_level)print_tab(tab_level);
+    if(tab_level)print_tab(tab_level);
     switch (color){
         case RED_STR:
             printf(RED "%c" COLOR_NONE,str);
