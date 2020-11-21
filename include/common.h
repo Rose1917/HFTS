@@ -4,7 +4,6 @@
 #include "ThostFtdcUserApiDataType.h"
 #include "ThostFtdcUserApiStruct.h"
 #include "debug.h"
-#include "main.h"
 #include "extend_md_spi.h"
 #include "util.h"
 #include <bits/stdc++.h>

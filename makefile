@@ -8,3 +8,4 @@ clean:
 	rm -f *.o main *.con
 debug:${SRC_FILES} 
 	g++ -DDEBUG -W  -o main ${SRC_FILES} ${LIB_FILES}
+remake:clean main
