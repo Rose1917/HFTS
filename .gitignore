@@ -5,7 +5,8 @@ main
 info/
 market_info/
 nd/
-!.gitkeep
+!info/.gitkeep
+!market_info/gitkeep
 
 
 
