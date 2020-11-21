@@ -8,5 +8,6 @@
 #include "util.h"
 #include "config.h"
 #include "market.h"
+#include "order.h"
 #include "main.h"
 #include <bits/stdc++.h>

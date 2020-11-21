@@ -47,8 +47,10 @@ void menu(){
 		switch(key){
 			case '1':show_data();break;
 			case '4':hide_data();break;
+			case '5':order_main();break;
+			case '6':load_doc("helper.txt");break;
 			case '0':exit(0);break;
-			case 'h':load_doc("helper.txt");break;
+			
 			default:
 				print_prompt();break;
 				break;
@@ -63,7 +65,10 @@ void menu_view(){
 	log_str("2.Configure the strategy",GREEN_STR);
 	log_str("3.Start the analysis and auto-trade",GREEN_STR);
 	log_str("4.Stopping the market bulletin",GREEN_STR);
+	log_str("5.place an order",GREEN_STR);
+	log_str("6.help");
 	log_str("0.exit",GREEN_STR);
+
 	cout<<":";
 }
 void print_version(){
@@ -72,7 +77,7 @@ void print_version(){
 }
 void print_prompt(){
 	cout<<"You have input an illegal command"<<endl;
-	cout<<"Input h for more infomation"<<endl;
+	cout<<"Input 6 for more infomation"<<endl;
 }
 void load_doc(char* doc_name){
 	ifstream rs;
