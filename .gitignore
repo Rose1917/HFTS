@@ -1,6 +1,6 @@
 /api-materials/
 /demo/
 main
-/info/
-/market_info/
+info/*
+market_info/*
 
