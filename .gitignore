@@ -2,8 +2,9 @@
 /demo/
 main
 #we will save the directory,but the files below will not be tracked.
-info/
-market_info/
+info/*
+market_info/*
+order_info/*
 !.gitkeep
 
 
