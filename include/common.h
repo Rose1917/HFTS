@@ -6,4 +6,7 @@
 #include "debug.h"
 #include "extend_md_spi.h"
 #include "util.h"
+#include "config.h"
+#include "market.h"
+#include "main.h"
 #include <bits/stdc++.h>

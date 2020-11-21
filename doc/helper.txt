@@ -1,0 +1,6 @@
+#This is a instruction file for the main menu
+Welcome to using the FuGui futures platform.
+You can use the following option:
+1.to start monitoring the bulletion.
+2.to stop monitoring the bulletion.
+0.to exit the system.

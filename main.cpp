@@ -1,14 +1,16 @@
 #include "include/common.h"
-#include "include/main.h"
 #include <iostream>
 #include <unistd.h>
 using namespace std;
 
-
+//Global variables
+api* trade_api=nullptr;
+md_api* market_api=nullptr;
+econf_ptr econf=nullptr;
 
 int main(){
 #ifdef DEBUG
-	cout<<"now in the debug mode"<<endl;
+	cout<<"now under the debug mode:"<<endl;
 #endif
 	init();
 	sleep(5);
@@ -32,29 +34,72 @@ void init(){
 	market_api->Init();
 }
 void register_front(){
-	trade_api->RegisterFront(td_front_addr);
-	market_api->RegisterFront(md_front_addr);
+	econf=new env_config("tcp://180.168.146.187:10101","tcp://180.168.146.187:10131");
+	trade_api->RegisterFront(econf->get_td_front_addr());
+	market_api->RegisterFront(econf->get_md_front_addr());
 }
 void menu(){
-	
+	print_version();
 	key_type key;
-	log_str("Please input your choice");
-	cin>>key;
-	switch(key){
-		case '1':
-			;
-		default:
-			log_str("You input");log_str(key);
-			break;
+	while(true){
+		menu_view();
+		cin>>key;
+		switch(key){
+			case '1':show_data();break;
+			case '4':hide_data();break;
+			case '0':exit(0);break;
+			case 'h':load_doc("helper.txt");break;
+			default:
+				print_prompt();break;
+				break;
+		}
 	}
+	
 }
 void menu_view(){
-	cout<<"The version info:"<<trade_api->GetApiVersion()<<endl;
-	cout<<"The trading day:"<<trade_api->GetTradingDay()<<endl;
+	system("clear");
 	log_str("\tMENU\t",GREEN_STR);
 	log_str("1.Show the market bulletin",GREEN_STR);
 	log_str("2.Configure the strategy",GREEN_STR);
 	log_str("3.Start the analysis and auto-trade",GREEN_STR);
-	cout<<endl;
+	log_str("4.Stopping the market bulletin",GREEN_STR);
+	log_str("0.exit",GREEN_STR);
+	cout<<":";
+}
+void print_version(){
+	cout<<"CTP version info:"<<trade_api->GetApiVersion()<<endl;
+	cout<<"The trading day:"<<trade_api->GetTradingDay()<<endl;
+}
+void print_prompt(){
+	cout<<"You have input an illegal command"<<endl;
+	cout<<"Input h for more infomation"<<endl;
+}
+void load_doc(char* doc_name){
+	ifstream rs;
+	char prefix[50]="doc/";
+	strcat(prefix,doc_name);
+	rs.open(prefix);
+	if(!rs.is_open()){
+		log_error("log doc:an error occurred while loading the doc file",doc_name);
+		exit(0);
+	}
+	int line=1;
+	string buffer;
+
+	int page_size=econf->get_page_size();
+	string key;
+	while(getline(rs,buffer)){
+		if(page_size==0){
+			cout<<":";
+			cin>>key;
+			if(key=="q")return ;
+			else{
+				page_size=econf->get_page_size();
+			}
+		}
+		cout<<(line++)<<"\t"<<buffer<<endl;
+		page_size--;
+	}
+	sleep(5);
 }
 

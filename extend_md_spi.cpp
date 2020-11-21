@@ -2,6 +2,8 @@
 #define PRICE_MAX_LEN 20
 using namespace std;
 char* subID[]={"ag2012","hc2101","zn2011","sn2011","ag2110"};
+bool show_flag=false;
+
 extend_md_spi::extend_md_spi(CThostFtdcMdApi* api){
 	setTapi(api);
 }
@@ -34,7 +36,10 @@ void extend_md_spi::OnRspUserLogin(CThostFtdcRspUserLoginField *rsp_login_field,
 		this->getTapi()->SubscribeMarketData(subID,sizeof(subID)/sizeof(char*));
 	}
 }
+//数据接收函数
 void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
+	if(!show_flag)return ;
+	
 	log_error("Market info received");
 
 	/*

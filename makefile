@@ -3,7 +3,7 @@ SRC_FILES=$(wildcard *.cpp)
 main:${SRC_FILES} 
 	g++ -w -o main ${SRC_FILES} ${LIB_FILES} 
 run:
-	./main
+	sudo ./main
 clean:
 	rm -f *.o main *.con
 debug:${SRC_FILES} 
