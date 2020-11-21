@@ -59,7 +59,7 @@ void menu(){
 	
 }
 void menu_view(){
-	system("clear");
+	//system("clear");
 	log_str("\tMENU\t",GREEN_STR);
 	log_str("1.Show the market bulletin",GREEN_STR);
 	log_str("2.Configure the strategy",GREEN_STR);

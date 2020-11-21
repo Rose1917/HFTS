@@ -53,5 +53,43 @@ void extend_spi::OnRspUserLogin(CThostFtdcRspUserLoginField *rsp_login_field, CT
 	#endif
 	if(!error_info->ErrorID){
 		log_info("Login Success");
+		CThostFtdcQrySettlementInfoField settle_info_field;
+		strcpy(settle_info_field.BrokerID,"9999");
+		strcpy(settle_info_field.InvestorID,"177050");
+		strcpy(settle_info_field.TradingDay,rsp_login_field->TradingDay);
+		this->getTapi()->ReqQrySettlementInfo(&settle_info_field,0);
 	}
 }
+void extend_spi::OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettlementInfo, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	log_info("OnRspQrySettlementInfo");
+	if(pSettlementInfo!=NULL){
+		log_str("content:");
+		log_info(pSettlementInfo->Content);
+	}
+	else log_str("content null");
+
+	//Send settlement confirm info
+	CThostFtdcSettlementInfoConfirmField settle_confirm_field;
+	strcpy(settle_confirm_field.BrokerID,"9999");
+	strcpy(settle_confirm_field.InvestorID,"177050");
+	this->getTapi()->ReqSettlementInfoConfirm(&settle_confirm_field,0);
+
+}
+void extend_spi::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	log_info("OnRspQrySettlementInfoConfirm");
+	if(!pRspInfo->ErrorID) log_str("Confirm success");
+	else log_error("Error message:",pRspInfo->ErrorMsg);
+}
+void extend_spi::OnRtnOrder(CThostFtdcOrderField *pOrder){
+	log_info("OnRtnOrder function:");
+	cout<<"Order status:";log_str(pOrder->OrderStatus);
+	log_str("Status message:",pOrder->StatusMsg);
+}
+void extend_spi::OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	log_info("OnRspOrderInsert function");
+	printf("ErrorID:%d",pRspInfo->ErrorID);
+	if(!pRspInfo->ErrorID) log_info("Insert request send success");
+	else log_info("Error Msg:",pRspInfo->ErrorMsg);
+}
+
+
