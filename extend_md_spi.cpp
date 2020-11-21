@@ -1,7 +1,7 @@
 #include "include/common.h"
 #define PRICE_MAX_LEN 20
 using namespace std;
-char* subID[]={"fu2012","hc2101","zn2011","sn2011","ag2110"};
+char* subID[]={"ag2012","hc2101","zn2011","sn2011","ag2110"};
 extend_md_spi::extend_md_spi(CThostFtdcMdApi* api){
 	setTapi(api);
 }
