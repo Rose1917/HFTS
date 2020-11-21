@@ -6,6 +6,5 @@ main
 info/*
 !market_info/
 market_info/*
-new_directory/*
-!new_directory/
+nd/*
 
