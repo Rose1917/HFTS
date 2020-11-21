@@ -66,7 +66,7 @@ void menu_view(){
 	log_str("3.Start the analysis and auto-trade",GREEN_STR);
 	log_str("4.Stopping the market bulletin",GREEN_STR);
 	log_str("5.place an order",GREEN_STR);
-	log_str("6.help");
+	log_str("6.help",GREEN_STR);
 	log_str("0.exit",GREEN_STR);
 
 	cout<<":";
