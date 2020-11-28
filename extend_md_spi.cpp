@@ -1,8 +1,8 @@
 #include "include/common.h"
 #define PRICE_MAX_LEN 20
 using namespace std;
-char* subID[]={"ag2012","hc2101","zn2011","sn2011","ag2110"};
-bool show_flag=false;
+char* subID[]={"ag2012","hc2101","zn2011","sn2011","ag2110","ag2111"};
+bool show_flag=true;
 
 extend_md_spi::extend_md_spi(CThostFtdcMdApi* api){
 	setTapi(api);
@@ -12,9 +12,9 @@ extend_md_spi::extend_md_spi(CThostFtdcMdApi* api){
 void extend_md_spi::OnFrontConnected(){
 	log_info("Market front connectted,now logging in...");
 	CThostFtdcReqUserLoginField login_field;
-	strcpy(login_field.BrokerID,"8000");
-	strcpy(login_field.UserID,"000005");
-	strcpy(login_field.Password,"123456");
+	strcpy(login_field.BrokerID,"9999");
+	strcpy(login_field.UserID,"177050");
+	strcpy(login_field.Password,"3650599367aA");
 	//to-do
 	this->getTapi()->ReqUserLogin(&login_field,0);
 }
@@ -70,9 +70,13 @@ void extend_md_spi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpeci
 	log_str("ErrorID:");log_str(pRspInfo->ErrorID);
 	log_str("Error Message:",pRspInfo->ErrorMsg);
 	#endif
-	if(!pRspInfo->ErrorMsg)
+	if(!pRspInfo->ErrorID)
 	{
 		log_str("InstrumentID=",pSpecificInstrument->InstrumentID);
 		log_str("Subscribtion success.");
+	}
+	else{
+		cout<<"Error ID"<<" "<<pRspInfo->ErrorID;
+		log_str("Error message:",pRspInfo->ErrorMsg);
 	}
 }

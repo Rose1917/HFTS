@@ -14,3 +14,4 @@ char* float2c(float f){
 	sprintf(temp_str,"%.4f",f);
     return temp_str;
 }
+

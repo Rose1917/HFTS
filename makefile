@@ -1,11 +1,15 @@
 LIB_FILES=$(wildcard lib/*.so)
-SRC_FILES=$(wildcard *.cpp)
-main:${SRC_FILES} 
-	g++ -w -o main ${SRC_FILES} ${LIB_FILES} 
+SRC_FILES:=$(wildcard *.cpp)
+OBJ_FILES:=$(SRC_FILES:%.cpp=bin/%.o)
+FLAGS=-ldl  -Wl,-rpath=./lib -w
+main:${OBJ_FILES} 
+	g++ -w -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
+bin/%.o : %.cpp
+	g++ -c $(FLAGS) $< -o $@
 run:
-	sudo ./main
+	./main
 clean:
-	rm -f *.o main *.con
+	rm -f *.o main *.con bin/*.o
 debug:${SRC_FILES} 
-	g++ -DDEBUG -W  -o main ${SRC_FILES} ${LIB_FILES}
+	g++ -DDEBUG -W  -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
 remake:clean main

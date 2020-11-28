@@ -10,4 +10,6 @@
 #include "market.h"
 #include "order.h"
 #include "main.h"
+#include "db/SQLAPI.h"
+#include "db.h"
 #include <bits/stdc++.h>
