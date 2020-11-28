@@ -14,8 +14,8 @@ int main(){
 #endif
 	init();
 	//sleep(5);
-	//menu();
-	create_contract("ag2012");
+	menu();
+	//create_contract("ag2012");
 	return 0;
 }
 void init(){	

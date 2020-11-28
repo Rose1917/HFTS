@@ -71,6 +71,7 @@ void execute_cmd(char* cmd){
     SACommand select(&con, _TSA(cmd));
     select.Execute();
 }
+//Check if the contract exists in the database,if not create one.
 int create_contract(char* contract_name){
     //To check if this contract_name already exist.
     //execute_cmd("USE INFORMATION_SCHEMA");
@@ -79,15 +80,15 @@ int create_contract(char* contract_name){
     }
     SACommand select_tb(&con, _TSA("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=:1"));
     select_tb<<_TSA(contract_name);
-    cout<<&(*(select_tb.CommandText()));
     select_tb.Execute();
     if(select_tb.FetchNext()){
         //it already exists.
         log_info("Already exists");
         return 0;
     }
+    //TODO:change the table directory
     else {
-        log_info("The contract table does not exist,now 
+        log_info("The contract table does not exist,now registering a new one");
         char final_cmd[50];
         sprintf(final_cmd,"CREATE TABLE %s(AGE INT(4),NAME VARCHAR(10))",contract_name);
         SACommand create_tb(&con,final_cmd);
