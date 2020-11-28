@@ -30,6 +30,8 @@ void init(){
 	trade_api->SubscribePrivateTopic(THOST_TERT_QUICK);
 	trade_api->SubscribePublicTopic(THOST_TERT_QUICK);	
 
+	init_db();
+
 	trade_api->Init();
 	market_api->Init();
 }
