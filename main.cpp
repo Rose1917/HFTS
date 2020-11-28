@@ -13,8 +13,9 @@ int main(){
 	cout<<"now under the debug mode:"<<endl;
 #endif
 	init();
-	sleep(5);
-	menu();
+	//sleep(5);
+	//menu();
+	create_contract("ag2012");
 	return 0;
 }
 void init(){	

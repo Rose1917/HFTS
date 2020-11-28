@@ -14,4 +14,9 @@ char* float2c(float f){
 	sprintf(temp_str,"%.4f",f);
     return temp_str;
 }
+char* const2c(char* s){
+    char* temp_str=(char*)malloc(ARRAY_SIZE);
+	strcpy(temp_str,s);
+    return temp_str;
+}
 

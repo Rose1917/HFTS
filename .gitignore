@@ -5,6 +5,7 @@ main
 info/*
 market_info/*
 order_info/*
+bin/*
 !.gitkeep
 
 

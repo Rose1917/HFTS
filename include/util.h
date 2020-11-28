@@ -4,4 +4,5 @@
 char* double2c(double);
 char* float2c(float);
 char* int2c(int);
+char* const2c(char*);
 #endif

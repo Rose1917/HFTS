@@ -2,7 +2,7 @@
 #define PRICE_MAX_LEN 20
 using namespace std;
 char* subID[]={"ag2012","hc2101","zn2011","sn2011","ag2110","ag2111"};
-bool show_flag=true;
+bool show_flag=false;
 
 extend_md_spi::extend_md_spi(CThostFtdcMdApi* api){
 	setTapi(api);
@@ -32,8 +32,29 @@ void extend_md_spi::OnRspUserLogin(CThostFtdcRspUserLoginField *rsp_login_field,
 	log_str("ErrorMsg:",error_info->ErrorMsg);	
 	#endif
 	if(!error_info->ErrorID){
-		log_info("Market Login Success");
+		std::cout << "=====Login Success=====" << std::endl;
+		std::cout << "Trading Day： " << rsp_login_field->TradingDay << std::endl;
+		std::cout << "Login Time： " << rsp_login_field->LoginTime << std::endl;
+		std::cout << "Broker ID： " << rsp_login_field->BrokerID << std::endl;
+		std::cout << "User Account： " << rsp_login_field->UserID << std::endl;
 		this->getTapi()->SubscribeMarketData(subID,sizeof(subID)/sizeof(char*));
+	}
+}
+void extend_md_spi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	#ifdef DEBUG
+	log_info("Subscribtion responce:");
+	log_str("InstrumentID=");log_str(pSpecificInstrument->InstrumentID);
+	log_str("ErrorID:");log_str(pRspInfo->ErrorID);
+	log_str("Error Message:",pRspInfo->ErrorMsg);
+	#endif
+	if(!pRspInfo->ErrorID)
+	{
+		log_str("InstrumentID=",pSpecificInstrument->InstrumentID);
+		log_str("Subscribtion success.");
+	}
+	else{
+		cout<<"Error ID"<<" "<<pRspInfo->ErrorID;
+		log_str("Error message:",pRspInfo->ErrorMsg);
 	}
 }
 //数据接收函数
@@ -63,20 +84,4 @@ void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
 	
 	
 }
-void extend_md_spi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
-	#ifdef DEBUG
-	log_info("Subscribtion responce:");
-	log_str("InstrumentID=");log_str(pSpecificInstrument->InstrumentID);
-	log_str("ErrorID:");log_str(pRspInfo->ErrorID);
-	log_str("Error Message:",pRspInfo->ErrorMsg);
-	#endif
-	if(!pRspInfo->ErrorID)
-	{
-		log_str("InstrumentID=",pSpecificInstrument->InstrumentID);
-		log_str("Subscribtion success.");
-	}
-	else{
-		cout<<"Error ID"<<" "<<pRspInfo->ErrorID;
-		log_str("Error message:",pRspInfo->ErrorMsg);
-	}
-}
+
