@@ -86,10 +86,20 @@ void extend_spi::OnRtnOrder(CThostFtdcOrderField *pOrder){
 	log_str("Status message:",pOrder->StatusMsg);
 }
 void extend_spi::OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	ofstream fout("output.txt");
 	log_info("OnRspOrderInsert function");
 	printf("ErrorID:%d",pRspInfo->ErrorID);
 	if(!pRspInfo->ErrorID) log_info("Insert request send success");
 	else log_info("Error Msg:",pRspInfo->ErrorMsg);
+	fout<<(pRspInfo->ErrorMsg);
+}
+void extend_spi::OnRspParkedOrderInsert(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	ofstream fout("output.txt");
+	log_info("OnRspParkedOrderInsert function");
+	printf("ErrorID:%d",pRspInfo->ErrorID);
+	if(!pRspInfo->ErrorID) log_info("Insert request send success");
+	else log_info("Error Msg:",pRspInfo->ErrorMsg);
+	fout<<(pRspInfo->ErrorMsg);
 }
 
 

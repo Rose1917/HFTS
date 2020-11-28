@@ -20,6 +20,8 @@ class extend_spi :public CThostFtdcTraderSpi{
 	void OnRtnOrder(CThostFtdcOrderField *pOrder);
 	//报单结果信息
 	void OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+	//parked order
+	void OnRspParkedOrderInsert(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	//Getter and Setter
 	void setTapi(CThostFtdcTraderApi* api){
 		this->tapi=api;

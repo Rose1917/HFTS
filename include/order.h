@@ -2,5 +2,8 @@
 #define ORDER_H
 #include "common.h"
 void order_main();
-void place_order();
+void insert_order();
+void parked_order();
+void order_menu();
+
 #endif
