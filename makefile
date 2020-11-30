@@ -9,6 +9,8 @@ bin/%.o : %.cpp
 	g++ -c $(FLAGS) $< -o $@
 run:
 	./main
+rrun:
+	sudo ./main
 clean:
 	rm -f *.o main *.con bin/*.o
 debug:${SRC_FILES} 

@@ -1,7 +1,7 @@
 #include "include/common.h"
 #define PRICE_MAX_LEN 20
 using namespace std;
-char* subID[]={"ag2012","hc2101"};
+char* subID[]={"ag2012","hc2101","zn2011","sn2011","ag2111"};
 bool show_flag=true;
 //,"zn2011","sn2011","ag2110","ag2111"
 extend_md_spi::extend_md_spi(CThostFtdcMdApi* api){
@@ -66,12 +66,13 @@ void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
 	if(!show_flag)return ;
 	
 	log_error("Market info received");
-
+	insert_depth_db(data);
 	/*
 	log_str("ExchangeID:",data->ExchangeID,GREEN_STR,1);
 	log_str("Exchange Instance ID:",data->ExchangeInstID,GREEN_STR,1);
 	*/
 	log_str("Instrument ID:",data->InstrumentID,GREEN_STR,1);
+	log_str("Trading Day:",data->TradingDay,GREEN_STR,1);
 	log_str("Update time:",data->UpdateTime,GREEN_STR,1);
 	log_str("Update mills:",int2c(data->UpdateMillisec),GREEN_STR,1);
 	log_str("Last Price:",double2c(data->LastPrice),GREEN_STR,1);
@@ -79,6 +80,9 @@ void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
 	log_str("Ask Volume:",double2c(data->AskVolume1),GREEN_STR,1);
 	log_str("Bid Price:",double2c(data->BidPrice1),GREEN_STR,1);
 	log_str("Bid Volume:",double2c(data->BidVolume1),GREEN_STR,1);
+	log_str("OpenInterest:",double2c(data->OpenInterest),GREEN_STR,1);
+	log_str("Turn Over:",double2c(data->Turnover),GREEN_STR,1);
+	insert_depth_db(data);
 	//log_str("")
 	//data->TradingDay
 	

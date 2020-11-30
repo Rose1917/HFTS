@@ -18,29 +18,38 @@ int main(){
 	//create_contract("ag2012");
 	return 0;
 }
-void init(){	
-	trade_api=api::CreateFtdcTraderApi("./info/");
+void init(){
+//init the database
+	init_db();
+
+//init the market api
+	econf=new env_config("tcp://180.168.146.187:10101","tcp://180.168.146.187:10131");
+	log_str("=====INIT THE MARKET API=====",YELLOW_STR);
 	market_api=md_api::CreateFtdcMdApi("./market_info/");
 	
-	extend_spi* trade_spi=new extend_spi(trade_api);
-	trade_api->RegisterSpi(trade_spi);
 	extend_md_spi* market_spi=new extend_md_spi(market_api);
 	market_api->RegisterSpi(market_spi);
 	
-	register_front();
+	market_api->RegisterFront(econf->get_md_front_addr());
+
+	market_api->Init();
+
+//init the trade api
+	sleep(5);
+	log_str("=====INIT THE TRADE API=====",YELLOW_STR);
+	trade_api=api::CreateFtdcTraderApi("./info/");
+	extend_spi* trade_spi=new extend_spi(trade_api);
+	trade_api->RegisterSpi(trade_spi);
+
+	trade_api->RegisterFront(econf->get_td_front_addr());
+	
 	trade_api->SubscribePrivateTopic(THOST_TERT_QUICK);
 	trade_api->SubscribePublicTopic(THOST_TERT_QUICK);	
-
-	init_db();
-
+	
 	trade_api->Init();
-	market_api->Init();
+
 }
-void register_front(){
-	econf=new env_config("tcp://180.168.146.187:10101","tcp://180.168.146.187:10131");
-	trade_api->RegisterFront(econf->get_td_front_addr());
-	market_api->RegisterFront(econf->get_md_front_addr());
-}
+
 void menu(){
 	print_version();
 	key_type key;

@@ -27,4 +27,5 @@ int shutdown_db();
 void read_db();
 void execute_cmd(char* cmd);
 int create_contract(char* contract_name);
+void insert_depth_db(CThostFtdcDepthMarketDataField *data);
 #endif

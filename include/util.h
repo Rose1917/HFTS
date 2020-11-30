@@ -5,4 +5,10 @@ char* double2c(double);
 char* float2c(float);
 char* int2c(int);
 char* const2c(char*);
+int get_year(char*);
+int get_mon(char*);
+int get_day(char*);
+int get_hour(char*);
+int get_min(char*);
+int get_sec(char*);
 #endif

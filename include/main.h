@@ -14,7 +14,6 @@ typedef char key_type;
 
 void menu();
 void init();
-void register_front();
 void menu_view();
 void print_version();
 void print_prompt();
