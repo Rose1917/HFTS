@@ -8,7 +8,7 @@ typedef double index_val;
 class share_index{
     index_t type;
     index_val value;
-    const char* post_para[]={"000016","000905","000300"};
+    char* post_para[4]={"000016","000905","000300"};
     public:
     share_index(index_t t,index_val v=0){
         this->type=t;this->value=v;
