@@ -12,4 +12,5 @@
 #include "main.h"
 #include "db/SQLAPI.h"
 #include "db.h"
+#include "index.h"
 #include <bits/stdc++.h>

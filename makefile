@@ -2,7 +2,7 @@ LIB_FILES=$(wildcard lib/*.so)
 SRC_FILES:=$(wildcard *.cpp)
 HEAD_FILES:=$(wildcard include/*.h)
 OBJ_FILES:=$(SRC_FILES:%.cpp=bin/%.o)
-FLAGS=-ldl  -Wl,-rpath=./lib -w
+FLAGS=-ldl -lcurl -Wl,-rpath=./lib -w
 main:${OBJ_FILES} 
 	g++ -w -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
 bin/%.o : %.cpp

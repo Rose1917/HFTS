@@ -12,10 +12,17 @@ int main(){
 #ifdef DEBUG
 	cout<<"now under the debug mode:"<<endl;
 #endif
-	init();
+	//init();
 	//sleep(5);
-	menu();
+	//menu();
 	//create_contract("ag2012");
+	share_index ix(SHANGZHENG_50,0);
+	share_index ix1(ZHONGZHENG_500,0);
+	share_index ix2(HUSHEN_300,0);
+	ix.update_val();
+	ix1.update_val();
+	ix2.update_val();
+	cout<<ix.get_index_val()<<ix1.get_index_val()<<ix1.get_index_val()<<endl;
 	return 0;
 }
 void init(){
