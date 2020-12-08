@@ -13,7 +13,7 @@ rrun:
 	sudo ./main
 clean:
 	rm -f *.o main *.con bin/*.o
-debug:${SRC_FILES} 
+debug:${OBJ_FILES} 
 	g++ -DDEBUG -W  -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
 count:
 	wc -l $(SRC_FILES) $(HEAD_FILES)
