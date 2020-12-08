@@ -166,3 +166,6 @@ void insert_depth_db(CThostFtdcDepthMarketDataField *data){
     }
     
 }
+int insert_index_data(){
+    
+}

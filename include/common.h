@@ -13,4 +13,5 @@
 #include "db/SQLAPI.h"
 #include "db.h"
 #include "index.h"
+#include "strategy.h"
 #include <bits/stdc++.h>

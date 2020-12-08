@@ -16,10 +16,12 @@ class share_index{
     index_val value;
     std::list<index_eledata> market_data;
     char* post_para[4]={"000016","000905","000300"};
+    char* index_name[4]={"shangzheng50","zhongzheng500","hushen300"};
     
     public:
     share_index(index_t t,index_val v=0){
         this->type=t;this->value=v;
+        create_index(index_name[t]);
     }
 
     int update_val();

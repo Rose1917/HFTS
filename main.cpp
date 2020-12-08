@@ -16,19 +16,22 @@ int main(){
 	//sleep(5);
 	//menu();
 	//create_contract("ag2012");
+	//share_index ix(SHANGZHENG_50,0);
+	
+	//ix.update_val();
+	//ix1.update_val();
+	//ix2.update_val();
+	//cout<<ix.get_index_val()<<ix1.get_index_val()<<ix1.get_index_val()<<endl;
+	//index_strategy indddx;
+	init_db();
 	share_index ix(SHANGZHENG_50,0);
-	share_index ix1(ZHONGZHENG_500,0);
-	share_index ix2(HUSHEN_300,0);
-	ix.update_val();
-	ix1.update_val();
-	ix2.update_val();
-	cout<<ix.get_index_val()<<ix1.get_index_val()<<ix1.get_index_val()<<endl;
+	
 	return 0;
 }
 void init(){
 //init the database
 	init_db();
-
+	
 //init the market api
 	econf=new env_config("tcp://180.168.146.187:10101","tcp://180.168.146.187:10131");
 	log_str("=====INIT THE MARKET API=====",YELLOW_STR);

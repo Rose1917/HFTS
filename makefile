@@ -2,7 +2,7 @@ LIB_FILES=$(wildcard lib/*.so)
 SRC_FILES:=$(wildcard *.cpp)
 HEAD_FILES:=$(wildcard include/*.h)
 OBJ_FILES:=$(SRC_FILES:%.cpp=bin/%.o)
-FLAGS=-ldl -lcurl -Wl,-rpath=./lib -w
+FLAGS=-ldl -lcurl -Wl,-rpath=./lib -w -g
 main:${OBJ_FILES} 
 	g++ -w -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
 bin/%.o : %.cpp
@@ -13,8 +13,8 @@ rrun:
 	sudo ./main
 clean:
 	rm -f *.o main *.con bin/*.o
-debug:${OBJ_FILES} 
-	g++ -DDEBUG -W  -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
+debug: 
+	gdb ./main
 count:
 	wc -l $(SRC_FILES) $(HEAD_FILES)
 remake:clean main
