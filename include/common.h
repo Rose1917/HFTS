@@ -15,3 +15,6 @@
 #include "index.h"
 #include "strategy.h"
 #include <bits/stdc++.h>
+#include <sys/types.h>
+#include <signal.h>
+#include <unistd.h>

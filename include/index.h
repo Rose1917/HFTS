@@ -20,7 +20,7 @@ class share_index{
     
     public:
     share_index(index_t t,index_val v=0);
-
+    void start_collecting_data();
     int update_val();
     int insert_data(index_eledata& e);
     void set_index_type(index_t t){this->type=t;}

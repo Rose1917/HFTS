@@ -136,10 +136,15 @@ int share_index::update_val(){
 int share_index::insert_data(index_eledata& e){
   if(market_data.size()==MEM_MAX_SIZE)market_data.pop_front();
   market_data.push_back(e);
+  //database operation
   insert_index_data(this->type,e);
   return 0;
 }
 share_index::share_index(index_t t,index_val v){
         this->type=t;this->value=v;
         create_index(index_name[t]);
+}
+//Here we start a new process
+void share_index::start_collecting_data(){
+  pid_t pid;
 }
