@@ -24,8 +24,10 @@ int main(){
 	//cout<<ix.get_index_val()<<ix1.get_index_val()<<ix1.get_index_val()<<endl;
 	//index_strategy indddx;
 	init_db();
-	share_index ix(SHANGZHENG_50,0);
+	share_index ix(SHANGZHENG_50,1.1);
+	ix.update_val();
 	
+
 	return 0;
 }
 void init(){

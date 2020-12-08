@@ -166,6 +166,19 @@ void insert_depth_db(CThostFtdcDepthMarketDataField *data){
     }
     
 }
-int insert_index_data(){
-    
+int insert_index_data(index_t index_type,index_eledata e){
+    char prepare_cmd[500];
+    char* index_name[4]={"shangzheng50","zhongzheng500","hushen300"};
+
+    sprintf(prepare_cmd,"INSERT INTO %s (UPDATE_TIME,LAST_PRICE) VALUES (:1,:2)",index_name[index_type]);
+    //YYYY-MM-DD HH:MM:SS
+    SACommand insert_data(&con,prepare_cmd);
+    insert_data<<e.time
+               <<(double)e.value;
+    try{
+        insert_data.Execute();
+    }
+    catch (SAException &e){
+        printf("%s\n", e.ErrText().GetMultiByteChars());
+    }
 }

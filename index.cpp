@@ -1,5 +1,6 @@
 #include "include/common.h"
 #include <curl/curl.h>
+#define DEBUG
 using namespace std;
 cm_buffer index_buffer;
 SADateTime last_tick_time();
@@ -22,6 +23,7 @@ int parse_date_time(std::string str,SADateTime** s){
     sscanf(str.substr(14,2).data(),"%d",&minute);
     sscanf(str.substr(17,2).data(),"%d",&second);
     sscanf(str.substr(20,2).data(),"%d",&fraction);
+    fraction*=1000000;
     #ifdef DEBUG
     cout<<"update time parsed data:"<<year<<month<<day<<hour<<minute<<second<<fraction<<endl;
     #endif
@@ -93,6 +95,7 @@ size_t write_to_buffer(void *buffer, size_t size, size_t nmemb, void *userp)
       cout<<"Got the newer data,recording the data in the common buffer..."<<endl;
       index_buffer.is_updated[index_type]=true;
       *(index_buffer.last_tick_time[index_type])=*update_time;
+      index_buffer.val[index_type]=update_val;
       free(update_time);
     }
     return size*nmemb;
@@ -122,7 +125,7 @@ int share_index::update_val(){
           curl_easy_cleanup(curl);
 
     //Got the data and store it in the list
-    if(index_buffer.is_updated[this->get_index_type()]){
+    if(index_buffer.is_updated[type]){
       index_eledata temp(*(index_buffer.last_tick_time[type]),index_buffer.val[type]);
       insert_data(temp);
     }
@@ -133,5 +136,10 @@ int share_index::update_val(){
 int share_index::insert_data(index_eledata& e){
   if(market_data.size()==MEM_MAX_SIZE)market_data.pop_front();
   market_data.push_back(e);
+  insert_index_data(this->type,e);
   return 0;
+}
+share_index::share_index(index_t t,index_val v){
+        this->type=t;this->value=v;
+        create_index(index_name[t]);
 }

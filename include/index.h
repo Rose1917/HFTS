@@ -19,10 +19,7 @@ class share_index{
     char* index_name[4]={"shangzheng50","zhongzheng500","hushen300"};
     
     public:
-    share_index(index_t t,index_val v=0){
-        this->type=t;this->value=v;
-        create_index(index_name[t]);
-    }
+    share_index(index_t t,index_val v=0);
 
     int update_val();
     int insert_data(index_eledata& e);
