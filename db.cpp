@@ -114,6 +114,33 @@ int create_contract(char* contract_name){
     }
     }
 }
+int create_index(char* index_name){
+    if(!con.isConnected()){
+        cout<<"not alive"<<endl;
+    }
+    SACommand select_tb(&con, _TSA("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME=:1"));
+    select_tb<<_TSA(index_name);
+    select_tb.Execute();
+    if(select_tb.FetchNext()){
+        //it already exists.
+        log_info("Already exists");
+        return 0;
+    }
+    else {
+        log_info("The index table does not exist,now registering a new one");
+        char final_cmd[100];
+        sprintf(final_cmd,"CREATE TABLE %s(UPDATE_TIME DATETIME(3),LAST_PRICE DOUBLE,PRIMARY KEY(UPDATE_TIME))",index_name);
+        SACommand create_tb(&con,final_cmd);
+        try{
+            create_tb.Execute();
+        }
+        catch(SAException &x){
+            con.Rollback();
+            printf("%s\n", x.ErrText().GetMultiByteChars());
+        }
+    }
+}
+
 void insert_depth_db(CThostFtdcDepthMarketDataField *data){
     char prepare_cmd[500];
     sprintf(prepare_cmd,"INSERT INTO %s (UPDATE_TIME,LAST_PRICE,ASK_PRICE,ASK_VOLUME,BID_PRICE,BID_VOLUME,OPEN_INTEREST,TURN_OVER) VALUES (:1,:2,:3,:4,:5,:6,:7,:8)",data->InstrumentID);

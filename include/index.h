@@ -23,7 +23,7 @@ class share_index{
     }
 
     int update_val();
-    int insert_data(index_eledata e);
+    int insert_data(index_eledata& e);
     void set_index_type(index_t t){this->type=t;}
     void set_index_val(index_val val){
         this->value=val;

@@ -9,6 +9,7 @@
 
 * OS Platform:Linux-x86-64
 * Dynamic Lib:Please make sure the MySQL development lib is installed on the target device.
+* Dynamic Lib:Please make sure the Curl Lib is installed on the target device.The download url is here https://curl.se/download/curl-7.73.0.tar.gz
 
 #### 3.Run
 

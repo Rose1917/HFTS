@@ -3,7 +3,8 @@
 using namespace std;
 cm_buffer index_buffer;
 SADateTime last_tick_time();
-//redefine > of SADateTime
+
+//redefine == of SADateTime
 bool operator ==(const SADateTime s1,const SADateTime s2){
   return (SAString)s1==(SAString)s2&&s1.Fraction()==s2.Fraction();
 }
@@ -89,13 +90,17 @@ size_t write_to_buffer(void *buffer, size_t size, size_t nmemb, void *userp)
       cout<<"redunt data"<<endl;
     } 
     else{
-      cout<<"Got the newer data,recording..."<<endl;
+      cout<<"Got the newer data,recording the data in the common buffer..."<<endl;
       index_buffer.is_updated[index_type]=true;
       *(index_buffer.last_tick_time[index_type])=*update_time;
       free(update_time);
     }
     return size*nmemb;
 }
+//1.Get the index json data.
+//2.Parse the json data and compare the data to judge if the data is newer.
+//3.If it is store it in the buffer (in the call back function)
+//4.Check if there is newer data.
 int share_index::update_val(){
   CURL *curl;
   CURLcode res;
@@ -118,14 +123,14 @@ int share_index::update_val(){
 
     //Got the data and store it in the list
     if(index_buffer.is_updated[this->get_index_type()]){
-      //index_eledata temp(*(index_buffer.last_tick_time[type]),index_buffer.val[type]);
-      //insert_data(temp);
+      index_eledata temp(*(index_buffer.last_tick_time[type]),index_buffer.val[type]);
+      insert_data(temp);
     }
   }
   curl_global_cleanup();
   return 0;
 }
-int share_index::insert_data(index_eledata e){
+int share_index::insert_data(index_eledata& e){
   if(market_data.size()==MEM_MAX_SIZE)market_data.pop_front();
   market_data.push_back(e);
   return 0;
