@@ -23,12 +23,19 @@ NAME VARCHAR(10)
 -- COMMIT;
 -- SELECT * FROM TEST;
 */
-int init_db();
-int shutdown_db();
-void read_db();
-void execute_cmd(char* cmd);
-int create_contract(char* contract_name);
-int create_index(char* index_name);
-void insert_depth_db(CThostFtdcDepthMarketDataField *data);
-int insert_index_data(index_t index_type,index_eledata e);
+class hfts_db{
+    static SAConnection *con;
+
+    public:
+    static int init_db(char* host_name,char* user_name,char* pwd,char* db_name);
+    static int shutdown_db();
+    static bool is_table_exist(char* table_name);
+    static int read_db();
+    static int execute_cmd(char*);
+    static int create_contract(char*);
+    static int create_index(char*);
+    static int insert_depth_db(CThostFtdcDepthMarketDataField*);
+    static int insert_index_data(index_t ,index_eledata);
+    static SAConnection* get_connection(){return hfts_db::con;}
+};
 #endif

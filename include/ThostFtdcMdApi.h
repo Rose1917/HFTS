@@ -1,10 +1,10 @@
 /////////////////////////////////////////////////////////////////////////
-///@system ÐÂÒ»´ú½»Ò×ËùÏµÍ³
-///@company ÉÏº£ÆÚ»õÐÅÏ¢¼¼ÊõÓÐÏÞ¹«Ë¾
+///@system ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³
+///@company ï¿½Ïºï¿½ï¿½Ú»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾
 ///@file ThostFtdcMdApi.h
-///@brief ¶¨ÒåÁË¿Í»§¶ËÐÐÇéÐÅÏ¢Ïà¹ØµÄ½Ó¿Ú
+///@brief ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ØµÄ½Ó¿ï¿½
 ///@history 
-///20060106	ÕÔºèê»		´´½¨¸ÃÎÄ¼þ
+///20060106	ï¿½Ôºï¿½ï¿½		ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 /////////////////////////////////////////////////////////////////////////
 
 #if !defined(THOST_FTDCMDAPI_H)
@@ -29,137 +29,137 @@
 class CThostFtdcMdSpi
 {
 public:
-	///µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨½¨Á¢ÆðÍ¨ÐÅÁ¬½ÓÊ±£¨»¹Î´µÇÂ¼Ç°£©£¬¸Ã·½·¨±»µ÷ÓÃ¡£
+	///ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ë½»ï¿½×ºï¿½Ì¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½Â¼Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½
 	virtual void OnFrontConnected(){};
 	
-	///µ±¿Í»§¶ËÓë½»Ò×ºóÌ¨Í¨ÐÅÁ¬½Ó¶Ï¿ªÊ±£¬¸Ã·½·¨±»µ÷ÓÃ¡£µ±·¢ÉúÕâ¸öÇé¿öºó£¬API»á×Ô¶¯ÖØÐÂÁ¬½Ó£¬¿Í»§¶Ë¿É²»×ö´¦Àí¡£
-	///@param nReason ´íÎóÔ­Òò
-	///        0x1001 ÍøÂç¶ÁÊ§°Ü
-	///        0x1002 ÍøÂçÐ´Ê§°Ü
-	///        0x2001 ½ÓÊÕÐÄÌø³¬Ê±
-	///        0x2002 ·¢ËÍÐÄÌøÊ§°Ü
-	///        0x2003 ÊÕµ½´íÎó±¨ÎÄ
+	///ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½ë½»ï¿½×ºï¿½Ì¨Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶Ï¿ï¿½Ê±ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½APIï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½Í»ï¿½ï¿½Ë¿É²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	///@param nReason ï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+	///        0x1001 ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	///        0x1002 ï¿½ï¿½ï¿½ï¿½Ð´Ê§ï¿½ï¿½
+	///        0x2001 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
+	///        0x2002 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+	///        0x2003 ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual void OnFrontDisconnected(int nReason){};
 		
-	///ÐÄÌø³¬Ê±¾¯¸æ¡£µ±³¤Ê±¼äÎ´ÊÕµ½±¨ÎÄÊ±£¬¸Ã·½·¨±»µ÷ÓÃ¡£
-	///@param nTimeLapse ¾àÀëÉÏ´Î½ÓÊÕ±¨ÎÄµÄÊ±¼ä
+	///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½æ¡£ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Î´ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¡ï¿½
+	///@param nTimeLapse ï¿½ï¿½ï¿½ï¿½ï¿½Ï´Î½ï¿½ï¿½Õ±ï¿½ï¿½Äµï¿½Ê±ï¿½ï¿½
 	virtual void OnHeartBeatWarning(int nTimeLapse){};
 	
 
-	///µÇÂ¼ÇëÇóÏìÓ¦
+	///ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦
 	virtual void OnRspUserLogin(CThostFtdcRspUserLoginField *pRspUserLogin, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///µÇ³öÇëÇóÏìÓ¦
+	///ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦
 	virtual void OnRspUserLogout(CThostFtdcUserLogoutField *pUserLogout, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///ÇëÇó²éÑ¯×é²¥ºÏÔ¼ÏìÓ¦
+	///ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½é²¥ï¿½ï¿½Ô¼ï¿½ï¿½Ó¦
 	virtual void OnRspQryMulticastInstrument(CThostFtdcMulticastInstrumentField *pMulticastInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///´íÎóÓ¦´ð
+	///ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½
 	virtual void OnRspError(CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///¶©ÔÄÐÐÇéÓ¦´ð
+	///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½
 	virtual void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///È¡Ïû¶©ÔÄÐÐÇéÓ¦´ð
+	///È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½
 	virtual void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///¶©ÔÄÑ¯¼ÛÓ¦´ð
+	///ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½Ó¦ï¿½ï¿½
 	virtual void OnRspSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///È¡Ïû¶©ÔÄÑ¯¼ÛÓ¦´ð
+	///È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½Ó¦ï¿½ï¿½
 	virtual void OnRspUnSubForQuoteRsp(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast) {};
 
-	///Éî¶ÈÐÐÇéÍ¨Öª
+	///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öª
 	virtual void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData) {};
 
-	///Ñ¯¼ÛÍ¨Öª
+	///Ñ¯ï¿½ï¿½Í¨Öª
 	virtual void OnRtnForQuoteRsp(CThostFtdcForQuoteRspField *pForQuoteRsp) {};
 };
 
 class MD_API_EXPORT CThostFtdcMdApi
 {
 public:
-	///´´½¨MdApi
-	///@param pszFlowPath ´æÖü¶©ÔÄÐÅÏ¢ÎÄ¼þµÄÄ¿Â¼£¬Ä¬ÈÏÎªµ±Ç°Ä¿Â¼
-	///@return ´´½¨³öµÄUserApi
+	///ï¿½ï¿½ï¿½ï¿½MdApi
+	///@param pszFlowPath ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½Ä¬ï¿½ï¿½Îªï¿½ï¿½Ç°Ä¿Â¼
+	///@return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½UserApi
 	///modify for udp marketdata
 	static CThostFtdcMdApi *CreateFtdcMdApi(const char *pszFlowPath = "", const bool bIsUsingUdp=false, const bool bIsMulticast=false);
 	
-	///»ñÈ¡APIµÄ°æ±¾ÐÅÏ¢
-	///@retrun »ñÈ¡µ½µÄ°æ±¾ºÅ
+	///ï¿½ï¿½È¡APIï¿½Ä°æ±¾ï¿½ï¿½Ï¢
+	///@retrun ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä°æ±¾ï¿½ï¿½
 	static const char *GetApiVersion();
 	
-	///É¾³ý½Ó¿Ú¶ÔÏó±¾Éí
-	///@remark ²»ÔÙÊ¹ÓÃ±¾½Ó¿Ú¶ÔÏóÊ±,µ÷ÓÃ¸Ãº¯ÊýÉ¾³ý½Ó¿Ú¶ÔÏó
+	///É¾ï¿½ï¿½ï¿½Ó¿Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½
+	///@remark ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã±ï¿½ï¿½Ó¿Ú¶ï¿½ï¿½ï¿½Ê±,ï¿½ï¿½ï¿½Ã¸Ãºï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Ó¿Ú¶ï¿½ï¿½ï¿½
 	virtual void Release() = 0;
 	
-	///³õÊ¼»¯
-	///@remark ³õÊ¼»¯ÔËÐÐ»·¾³,Ö»ÓÐµ÷ÓÃºó,½Ó¿Ú²Å¿ªÊ¼¹¤×÷
+	///ï¿½ï¿½Ê¼ï¿½ï¿½
+	///@remark ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½,Ö»ï¿½Ðµï¿½ï¿½Ãºï¿½,ï¿½Ó¿Ú²Å¿ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 	virtual void Init() = 0;
 	
-	///µÈ´ý½Ó¿ÚÏß³Ì½áÊøÔËÐÐ
-	///@return Ïß³ÌÍË³ö´úÂë
+	///ï¿½È´ï¿½ï¿½Ó¿ï¿½ï¿½ß³Ì½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	///@return ï¿½ß³ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual int Join() = 0;
 	
-	///»ñÈ¡µ±Ç°½»Ò×ÈÕ
-	///@retrun »ñÈ¡µ½µÄ½»Ò×ÈÕ
-	///@remark Ö»ÓÐµÇÂ¼³É¹¦ºó,²ÅÄÜµÃµ½ÕýÈ·µÄ½»Ò×ÈÕ
+	///ï¿½ï¿½È¡ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	///@retrun ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½
+	///@remark Ö»ï¿½Ðµï¿½Â¼ï¿½É¹ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ÜµÃµï¿½ï¿½ï¿½È·ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual const char *GetTradingDay() = 0;
 	
-	///×¢²áÇ°ÖÃ»úÍøÂçµØÖ·
-	///@param pszFrontAddress£ºÇ°ÖÃ»úÍøÂçµØÖ·¡£
-	///@remark ÍøÂçµØÖ·µÄ¸ñÊ½Îª£º¡°protocol://ipaddress:port¡±£¬Èç£º¡±tcp://127.0.0.1:17001¡±¡£ 
-	///@remark ¡°tcp¡±´ú±í´«ÊäÐ­Òé£¬¡°127.0.0.1¡±´ú±í·þÎñÆ÷µØÖ·¡£¡±17001¡±´ú±í·þÎñÆ÷¶Ë¿ÚºÅ¡£
+	///×¢ï¿½ï¿½Ç°ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+	///@param pszFrontAddressï¿½ï¿½Ç°ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½
+	///@remark ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½Ä¸ï¿½Ê½Îªï¿½ï¿½ï¿½ï¿½protocol://ipaddress:portï¿½ï¿½ï¿½ï¿½ï¿½ç£ºï¿½ï¿½tcp://127.0.0.1:17001ï¿½ï¿½ï¿½ï¿½ 
+	///@remark ï¿½ï¿½tcpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð­ï¿½é£¬ï¿½ï¿½127.0.0.1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½17001ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ÚºÅ¡ï¿½
 	virtual void RegisterFront(char *pszFrontAddress) = 0;
 	
-	///×¢²áÃû×Ö·þÎñÆ÷ÍøÂçµØÖ·
-	///@param pszNsAddress£ºÃû×Ö·þÎñÆ÷ÍøÂçµØÖ·¡£
-	///@remark ÍøÂçµØÖ·µÄ¸ñÊ½Îª£º¡°protocol://ipaddress:port¡±£¬Èç£º¡±tcp://127.0.0.1:12001¡±¡£ 
-	///@remark ¡°tcp¡±´ú±í´«ÊäÐ­Òé£¬¡°127.0.0.1¡±´ú±í·þÎñÆ÷µØÖ·¡£¡±12001¡±´ú±í·þÎñÆ÷¶Ë¿ÚºÅ¡£
-	///@remark RegisterNameServerÓÅÏÈÓÚRegisterFront
+	///×¢ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·
+	///@param pszNsAddressï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½
+	///@remark ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½Ä¸ï¿½Ê½Îªï¿½ï¿½ï¿½ï¿½protocol://ipaddress:portï¿½ï¿½ï¿½ï¿½ï¿½ç£ºï¿½ï¿½tcp://127.0.0.1:12001ï¿½ï¿½ï¿½ï¿½ 
+	///@remark ï¿½ï¿½tcpï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð­ï¿½é£¬ï¿½ï¿½127.0.0.1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½12001ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¿ÚºÅ¡ï¿½
+	///@remark RegisterNameServerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½RegisterFront
 	virtual void RegisterNameServer(char *pszNsAddress) = 0;
 	
-	///×¢²áÃû×Ö·þÎñÆ÷ÓÃ»§ÐÅÏ¢
-	///@param pFensUserInfo£ºÓÃ»§ÐÅÏ¢¡£
+	///×¢ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢
+	///@param pFensUserInfoï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 	virtual void RegisterFensUserInfo(CThostFtdcFensUserInfoField * pFensUserInfo) = 0;
 	
-	///×¢²á»Øµ÷½Ó¿Ú
-	///@param pSpi ÅÉÉú×Ô»Øµ÷½Ó¿ÚÀàµÄÊµÀý
+	///×¢ï¿½ï¿½Øµï¿½ï¿½Ó¿ï¿½
+	///@param pSpi ï¿½ï¿½ï¿½ï¿½ï¿½Ô»Øµï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½
 	virtual void RegisterSpi(CThostFtdcMdSpi *pSpi) = 0;
 	
-	///¶©ÔÄÐÐÇé¡£
-	///@param ppInstrumentID ºÏÔ¼ID  
-	///@param nCount Òª¶©ÔÄ/ÍË¶©ÐÐÇéµÄºÏÔ¼¸öÊý
+	///ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¡£
+	///@param ppInstrumentID ï¿½ï¿½Ô¼ID  
+	///@param nCount Òªï¿½ï¿½ï¿½ï¿½/ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½Ô¼ï¿½ï¿½ï¿½ï¿½
 	///@remark 
 	virtual int SubscribeMarketData(char *ppInstrumentID[], int nCount) = 0;
 
-	///ÍË¶©ÐÐÇé¡£
-	///@param ppInstrumentID ºÏÔ¼ID  
-	///@param nCount Òª¶©ÔÄ/ÍË¶©ÐÐÇéµÄºÏÔ¼¸öÊý
+	///ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½é¡£
+	///@param ppInstrumentID ï¿½ï¿½Ô¼ID  
+	///@param nCount Òªï¿½ï¿½ï¿½ï¿½/ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½Ô¼ï¿½ï¿½ï¿½ï¿½
 	///@remark 
 	virtual int UnSubscribeMarketData(char *ppInstrumentID[], int nCount) = 0;
 	
-	///¶©ÔÄÑ¯¼Û¡£
-	///@param ppInstrumentID ºÏÔ¼ID  
-	///@param nCount Òª¶©ÔÄ/ÍË¶©ÐÐÇéµÄºÏÔ¼¸öÊý
+	///ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½Û¡ï¿½
+	///@param ppInstrumentID ï¿½ï¿½Ô¼ID  
+	///@param nCount Òªï¿½ï¿½ï¿½ï¿½/ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½Ô¼ï¿½ï¿½ï¿½ï¿½
 	///@remark 
 	virtual int SubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) = 0;
 
-	///ÍË¶©Ñ¯¼Û¡£
-	///@param ppInstrumentID ºÏÔ¼ID  
-	///@param nCount Òª¶©ÔÄ/ÍË¶©ÐÐÇéµÄºÏÔ¼¸öÊý
+	///ï¿½Ë¶ï¿½Ñ¯ï¿½Û¡ï¿½
+	///@param ppInstrumentID ï¿½ï¿½Ô¼ID  
+	///@param nCount Òªï¿½ï¿½ï¿½ï¿½/ï¿½Ë¶ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½Ô¼ï¿½ï¿½ï¿½ï¿½
 	///@remark 
 	virtual int UnSubscribeForQuoteRsp(char *ppInstrumentID[], int nCount) = 0;
 
-	///ÓÃ»§µÇÂ¼ÇëÇó
+	///ï¿½Ã»ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
 	virtual int ReqUserLogin(CThostFtdcReqUserLoginField *pReqUserLoginField, int nRequestID) = 0;
 	
 
-	///µÇ³öÇëÇó
+	///ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½
 	virtual int ReqUserLogout(CThostFtdcUserLogoutField *pUserLogout, int nRequestID) = 0;
 
-	///ÇëÇó²éÑ¯×é²¥ºÏÔ¼
+	///ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½é²¥ï¿½ï¿½Ô¼
 	virtual int ReqQryMulticastInstrument(CThostFtdcQryMulticastInstrumentField *pQryMulticastInstrument, int nRequestID) = 0;
 protected:
 	~CThostFtdcMdApi(){};

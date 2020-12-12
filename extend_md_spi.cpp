@@ -51,7 +51,7 @@ void extend_md_spi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpeci
 	if(!pRspInfo->ErrorID)
 	{
 		log_str("InstrumentID=",pSpecificInstrument->InstrumentID);
-		create_contract(pSpecificInstrument->InstrumentID);
+		hfts_db::create_contract(pSpecificInstrument->InstrumentID);
 		log_str("Subscribtion success.");
 	}
 	else{
@@ -66,7 +66,7 @@ void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
 	if(!show_flag)return ;
 	
 	log_error("Market info received");
-	insert_depth_db(data);
+	hfts_db::insert_depth_db(data);
 	/*
 	log_str("ExchangeID:",data->ExchangeID,GREEN_STR,1);
 	log_str("Exchange Instance ID:",data->ExchangeInstID,GREEN_STR,1);
@@ -82,7 +82,7 @@ void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
 	log_str("Bid Volume:",double2c(data->BidVolume1),GREEN_STR,1);
 	log_str("OpenInterest:",double2c(data->OpenInterest),GREEN_STR,1);
 	log_str("Turn Over:",double2c(data->Turnover),GREEN_STR,1);
-	insert_depth_db(data);
+	hfts_db::insert_depth_db(data);
 	//log_str("")
 	//data->TradingDay
 	
