@@ -32,9 +32,10 @@ int main(){
 	login_market(nullptr,nullptr);
 
 	system_status::wait_code_till_true(MARKET_LOGIN);
-	subsribe_market_data("ag2012");
-
+	instrument_handler::insert_instru("ag2012");
 	
+	
+
 	while(true);
 
 	return 0;
@@ -85,21 +86,18 @@ void menu(){
 	}
 	
 }
+//to-do
 int login_market(char* user_name,char* pwd){
 	CThostFtdcReqUserLoginField login_field;
 	string broker_id="9999";
 	string user_id="177050";
 	string user_pwd="3650599367aA";
 
-//To-do
 	strcpy(login_field.BrokerID,broker_id.data());
 	strcpy(login_field.UserID,user_id.data());
 	strcpy(login_field.Password,user_pwd.data());
 	
 	market_api->ReqUserLogin(&login_field,0);
-}
-int subsribe_multi_market_data(){
-
 }
 int subsribe_market_data(char* instr_id){
 	market_api->SubscribeMarketData(&instr_id,1);

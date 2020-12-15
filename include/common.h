@@ -12,6 +12,7 @@
 #include "main.h"
 #include "db/SQLAPI.h"
 #include "db.h"
+#include "subscribtion.h"
 #include "index.h"
 #include "strategy.h"
 #include "status.h"

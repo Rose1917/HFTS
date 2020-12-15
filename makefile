@@ -4,7 +4,7 @@ HEAD_FILES:=$(wildcard include/*.h)
 OBJ_FILES:=$(SRC_FILES:%.cpp=bin/%.o)
 FLAGS=-ldl -lcurl -Wl,-rpath=./lib -w -g
 main:${OBJ_FILES} 
-	g++ -w -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
+	g++ -W -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
 bin/%.o : %.cpp
 	g++ -c $(FLAGS) $< -o $@
 run:

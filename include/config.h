@@ -15,7 +15,7 @@ class env_config{
     char* db_name;
     
     public:
-    env_config(char* td="tcp://180.168.146.187:10101",char* md="tcp://180.168.146.187:10131",char* host="129.211.69.209@",char* user="root",char* pwd="Hhcl199904020",char* dbname="USE HFTS"){
+    env_config(char* td="tcp://180.168.146.187:10101",char* md="tcp://180.168.146.187:10110",char* host="129.211.69.209@",char* user="root",char* pwd="Hhcl199904020",char* dbname="USE HFTS"){
         td_front_addr=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
         md_front_addr=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
         db_host=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
