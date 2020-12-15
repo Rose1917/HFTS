@@ -34,7 +34,6 @@ int main(){
 	system_status::wait_code_till_true(MARKET_LOGIN);
 	instrument_handler::insert_instru("ag2012");
 	
-	
 
 	while(true);
 

@@ -40,7 +40,7 @@ class instrument_item{
 };
 
 class instrument_handler{
-    static std::unordered_map<std::string,instrument_item*> inst_set();
+    static std::unordered_map<std::string,instrument_item*> *inst_set;
     public:
     static int insert_instru(instr_str instr_name);
     /*static int remove_instru(instr_str instr_name);
