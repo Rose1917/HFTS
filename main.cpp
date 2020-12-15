@@ -7,7 +7,6 @@ using namespace std;
 api* trade_api=nullptr;
 md_api* market_api=nullptr;
 econf_ptr econf=nullptr;
-
 int main(){
 #ifdef DEBUG
 	cout<<"now under the debug mode:"<<endl;
@@ -26,23 +25,36 @@ int main(){
 	//init_db();
 	//share_index ix(SHANGZHENG_50,1.1);
 	//ix.update_val();
-	init();
+	//market_init();
+
+	market_init();
+	system_status::wait_code_till_true(MARKET_FRONT);
+	login_market(nullptr,nullptr);
+
+	system_status::wait_code_till_true(MARKET_LOGIN);
+	subsribe_market_data("ag2012");
+
+	
+	while(true);
+
 	return 0;
 }
-void init(){
-//init the market api
+int market_init(){
 	//Got the configuration object
 	log_str("=====INIT THE DATABASE=====",YELLOW_STR);
 	econf=new env_config();
-	hfts_db::init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
 	
+	//connect to the database	
+	hfts_db::init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
+
 	log_str("=====INIT THE MARKET API=====",YELLOW_STR);
 	market_api=md_api::CreateFtdcMdApi("./market_info/");
 	extend_md_spi* market_spi=new extend_md_spi(market_api);
 	market_api->RegisterSpi(market_spi);
 	market_api->RegisterFront(econf->get_md_front_addr());
-
-	sleep(5);
+	market_api->Init();
+}
+int trader_init(){
 	log_str("=====INIT THE TRADE API=====",YELLOW_STR);
 	trade_api=api::CreateFtdcTraderApi("./info/");
 	extend_spi* trade_spi=new extend_spi(trade_api);
@@ -50,9 +62,9 @@ void init(){
 	trade_api->RegisterFront(econf->get_td_front_addr());
 	
 	trade_api->SubscribePrivateTopic(THOST_TERT_QUICK);
-	trade_api->SubscribePublicTopic(THOST_TERT_QUICK);	
+	trade_api->SubscribePublicTopic(THOST_TERT_QUICK);
+	trade_api->Init();
 }
-
 void menu(){
 	print_version();
 	key_type key;
@@ -72,6 +84,25 @@ void menu(){
 		}
 	}
 	
+}
+int login_market(char* user_name,char* pwd){
+	CThostFtdcReqUserLoginField login_field;
+	string broker_id="9999";
+	string user_id="177050";
+	string user_pwd="3650599367aA";
+
+//To-do
+	strcpy(login_field.BrokerID,broker_id.data());
+	strcpy(login_field.UserID,user_id.data());
+	strcpy(login_field.Password,user_pwd.data());
+	
+	market_api->ReqUserLogin(&login_field,0);
+}
+int subsribe_multi_market_data(){
+
+}
+int subsribe_market_data(char* instr_id){
+	market_api->SubscribeMarketData(&instr_id,1);
 }
 void menu_view(){
 	//system("clear");

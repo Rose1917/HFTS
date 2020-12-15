@@ -118,6 +118,11 @@ int log_info(char* str,int tab_level){
 int log_info(char* str1,char* str2,int tab_level){
     return log_str(str1,str2,BLUE_STR,tab_level);
 }
+int log_stone(int i){
+    char str[10];
+    sprintf(str,"%d",i);
+    log_error(str);
+}
 int print_tab(int tab_level){
     for(int i=0;i<tab_level;i++){
         std::cout<<"\t";

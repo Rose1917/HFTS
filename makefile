@@ -17,4 +17,6 @@ debug:
 	gdb ./main
 count:
 	wc -l $(SRC_FILES) $(HEAD_FILES)
+sql:
+	./mysql.sh
 remake:clean main

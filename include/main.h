@@ -13,7 +13,10 @@ typedef char key_type;
 
 
 void menu();
-void init();
+int market_init();
+int trader_init();
+int login_market(char*,char*);
+int subsribe_market_data(char*);
 void menu_view();
 void print_version();
 void print_prompt();

@@ -14,6 +14,7 @@
 #include "db.h"
 #include "index.h"
 #include "strategy.h"
+#include "status.h"
 #include <bits/stdc++.h>
 #include <sys/types.h>
 #include <signal.h>

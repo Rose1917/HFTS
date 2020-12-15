@@ -36,6 +36,7 @@ int hfts_db::init_db(char* host_name,char* user_name,char* pwd,char* db_name){
     catch(SAException &x) {
         get_connection()->Rollback();
         printf("%s\n", x.ErrText().GetMultiByteChars());
+        if(x.ErrNativeCode()==CONNECTION_TIME_OUT)log_error("Connection time out,please check your internet connection");
     }
 
     if(get_connection()->isConnected()){

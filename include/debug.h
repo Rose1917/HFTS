@@ -11,6 +11,11 @@ enum STR_COLOR{
 #define GREEN "\033[1;32;40m"
 #define YELLOW "\033[1;33;40m"
 
+//The error code
+enum ERROR_CODE{
+    CONNECTION_TIME_OUT=2002
+};
+
 int log_str(char* str,STR_COLOR color=NONE_STR,int tab_level=0);
 int log_str(char* str1,char* str2,STR_COLOR color=NONE_STR,int tab_level=0);
 int log_str(int i,STR_COLOR color=NONE_STR,int tab_level=0);
@@ -21,6 +26,8 @@ int log_error(char* str1,char* str2,int tab_level=0);
 int log_info(char* str,int tab_level=0);
 int log_info(char* str1,char* str2,int tab_level=0);
 
+int log_stone(int);
 int print_tab(int);
+
 
 #endif
