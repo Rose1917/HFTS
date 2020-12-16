@@ -45,6 +45,20 @@ void extend_md_spi::OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpeci
 		log_str("InstrumentID=",pSpecificInstrument->InstrumentID);
 		hfts_db::create_contract(pSpecificInstrument->InstrumentID);
 		log_str("Subscribtion success.");
+		system_status::is_subscribed=true;
+	}
+	else{
+		cout<<"Error ID"<<" "<<pRspInfo->ErrorID;
+		log_str("Error message:",pRspInfo->ErrorMsg);
+	}
+}
+void extend_md_spi::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
+	if(!pRspInfo->ErrorID)
+	{
+		log_str("InstrumentID=",pSpecificInstrument->InstrumentID);
+		hfts_db::create_contract(pSpecificInstrument->InstrumentID);
+		log_str("UnSubscribtion success.");
+		system_status::is_unsubscribed=true;
 	}
 	else{
 		cout<<"Error ID"<<" "<<pRspInfo->ErrorID;

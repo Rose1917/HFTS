@@ -5,7 +5,7 @@ OBJ_FILES:=$(SRC_FILES:%.cpp=bin/%.o)
 FLAGS=-ldl -lcurl -Wl,-rpath=./lib -w -g
 main:${OBJ_FILES} 
 	g++ -W -o main ${OBJ_FILES} ${LIB_FILES} $(FLAGS)
-bin/%.o : %.cpp
+bin/%.o : %.cpp include/%.h
 	g++ -c $(FLAGS) $< -o $@
 run:
 	./main

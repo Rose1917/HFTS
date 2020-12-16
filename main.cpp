@@ -32,13 +32,14 @@ int main(){
 	login_market(nullptr,nullptr);
 
 	system_status::wait_code_till_true(MARKET_LOGIN);
-	instrument_handler::insert_instru("ag2012");
-	
-
+	instrument_handler::insert_instru("ag2101");
+	future_eledata e;
+	instrument_handler::insert_depth_instru("ag2101",e);
 	while(true);
 
 	return 0;
 }
+//asychronorous front connection 
 int market_init(){
 	//Got the configuration object
 	log_str("=====INIT THE DATABASE=====",YELLOW_STR);
@@ -85,7 +86,7 @@ void menu(){
 	}
 	
 }
-//to-do
+//asynchronorous login request
 int login_market(char* user_name,char* pwd){
 	CThostFtdcReqUserLoginField login_field;
 	string broker_id="9999";
@@ -97,6 +98,7 @@ int login_market(char* user_name,char* pwd){
 	strcpy(login_field.Password,user_pwd.data());
 	
 	market_api->ReqUserLogin(&login_field,0);
+
 }
 int subsribe_market_data(char* instr_id){
 	market_api->SubscribeMarketData(&instr_id,1);

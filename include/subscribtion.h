@@ -40,11 +40,13 @@ class instrument_item{
 };
 
 class instrument_handler{
-    static std::unordered_map<std::string,instrument_item*> *inst_set;
+    public:static std::unordered_map<std::string,instrument_item*> *inst_set;
+
     public:
     static int insert_instru(instr_str instr_name);
-    /*static int remove_instru(instr_str instr_name);
-    static int insert_multi_instru(instr_str instr_name[]);
+    static int remove_instru(instr_str instr_name);
+    static int insert_depth_instru(instr_str instr_name,future_eledata e);
+    /*static int insert_multi_instru(instr_str instr_name[]);
     static int remove_multi_instru(instr_str instr_name[]);
     static std::set<instru>& get_instru_set();
     */

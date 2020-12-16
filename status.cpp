@@ -3,4 +3,5 @@ bool system_status::is_market_connected=false;
 bool system_status::is_trader_connected=false;
 bool system_status::is_market_logined=false;
 bool system_status::is_trader_logined=false;
-
+bool system_status::is_subscribed=false;
+bool system_status::is_unsubscribed=false;

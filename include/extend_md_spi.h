@@ -14,6 +14,9 @@ class extend_md_spi :public CThostFtdcMdSpi{
 	void OnRspSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	//订阅信息获取
 	void OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *pDepthMarketData);
+	//取消订阅响应函数
+	void OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpecificInstrument, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
+	
 	
 	//Getter and Setter
 	void setTapi(CThostFtdcMdApi* api){
