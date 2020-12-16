@@ -83,5 +83,5 @@ class env_config{
 };
 typedef env_config* econf_ptr;
 typedef env_config env_config;
-char* env_config::local_md_config[5]={"tcp://180.168.146.187:10110","tcp://180.168.146.187:10111","tcp://218.202.237.33 :10112","tcp://180.168.146.187:10212","tcp://218.202.237.33:10213"};
+
 #endif
