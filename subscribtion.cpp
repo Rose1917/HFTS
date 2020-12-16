@@ -41,10 +41,26 @@ int instrument_handler::remove_instru(instr_str name){
         return -1;
     }
 }
-int instrument_handler::insert_depth_instru(instr_str name,future_eledata e){
+int instrument_handler::insert_depth_instru(instr_str name,future_eledata* e){
     instrument_item* p;
+    
+    //Got the memory object
     if(instrument_handler::inst_set->find(string(name))==instrument_handler::inst_set->end()){
-        log_error("INSERT DEPTH DATA:SHOULD NOT BEEN HERE,THE UNVERIFIED DATA");
+        log_error("INSERT DEPTH DATA:THE TARGET OBJECT NOT FOUND");
         return 0;
-    }
+    }else p=instrument_handler::inst_set->find(string(name))->second;
+
+    //Put the data into the object
+    p->insert_element_data(e);
+    return 0;
+}
+instrument_item* instrument_handler::get_instrument_by_id(instr_str name){
+    instrument_item* p;
+    
+    if(instrument_handler::inst_set->find(string(name))==instrument_handler::inst_set->end()){
+        log_error("INSERT DEPTH DATA:THE TARGET OBJECT NOT FOUND");
+        return nullptr;
+    }else p=instrument_handler::inst_set->find(string(name))->second;
+
+    return p;
 }

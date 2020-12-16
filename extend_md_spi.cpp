@@ -69,35 +69,28 @@ void extend_md_spi::OnRspUnSubMarketData(CThostFtdcSpecificInstrumentField *pSpe
 //Once it receive a message,it will be called.
 
 void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
-	if(!show_flag)return ;
+	log_info("==market data recieved==");
 	
-	//log_error("Market info received");
+	//[syschronized:]insert the data into database
+	//[todo:]asyschronized
 	hfts_db::insert_depth_db(data);
-	/*
-	log_str("ExchangeID:",data->ExchangeID,GREEN_STR,1);
-	log_str("Exchange Instance ID:",data->ExchangeInstID,GREEN_STR,1);
-	*/
 	
+	SADateTime current_time=SADateTime::currentDateTimeWithFraction();
+	future_elemdata* e=new future_elemdata(current_time,data->LastPrice);
+	instrument_handler::insert_depth_instru(data->InstrumentID,e);
+
+
 	log_str("Instrument ID:",data->InstrumentID,GREEN_STR,1);
 	log_str("Trading Day:",data->TradingDay,GREEN_STR,1);
 	log_str("Update time:",data->UpdateTime,GREEN_STR,1);
 	log_str("Update mills:",int2c(data->UpdateMillisec),GREEN_STR,1);
 	log_str("Last Price:",double2c(data->LastPrice),GREEN_STR,1);
+	cout<<"ASK PRICE"<<data->AskPrice1<<endl;
 	log_str("Ask Price:",double2c(data->AskPrice1),GREEN_STR,1);
 	log_str("Ask Volume:",double2c(data->AskVolume1),GREEN_STR,1);
 	log_str("Bid Price:",double2c(data->BidPrice1),GREEN_STR,1);
 	log_str("Bid Volume:",double2c(data->BidVolume1),GREEN_STR,1);
 	log_str("OpenInterest:",double2c(data->OpenInterest),GREEN_STR,1);
 	log_str("Turn Over:",double2c(data->Turnover),GREEN_STR,1);
-	
-	//log_str("")
-	//data->TradingDay
-	
-
-
-	
-	//printf("%f\n",data->LastPrice);
-	
-	
 }
 

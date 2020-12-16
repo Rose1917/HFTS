@@ -28,14 +28,19 @@ int main(){
 	//market_init();
 
 	market_init();
-	system_status::wait_code_till_true(MARKET_FRONT);
 	login_market(nullptr,nullptr);
-
-	system_status::wait_code_till_true(MARKET_LOGIN);
+	
+	instrument_handler::insert_instru("ih2101");
+	instrument_handler::insert_instru("ic2101");
 	instrument_handler::insert_instru("ag2101");
-	future_eledata e;
+	
+	/*
+	future_elemdata e;
 	instrument_handler::insert_depth_instru("ag2101",e);
-	while(true);
+	*/
+	sleep(15);
+	
+	
 
 	return 0;
 }
@@ -44,7 +49,8 @@ int market_init(){
 	//Got the configuration object
 	log_str("=====INIT THE DATABASE=====",YELLOW_STR);
 	econf=new env_config();
-	
+	econf->set_md_front_addr("tcp://180.168.146.187:10110");
+
 	//connect to the database	
 	hfts_db::init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
 
@@ -54,6 +60,8 @@ int market_init(){
 	market_api->RegisterSpi(market_spi);
 	market_api->RegisterFront(econf->get_md_front_addr());
 	market_api->Init();
+	//wait the front connected.
+	system_status::wait_code_till_true(MARKET_FRONT);
 }
 int trader_init(){
 	log_str("=====INIT THE TRADE API=====",YELLOW_STR);
@@ -98,7 +106,7 @@ int login_market(char* user_name,char* pwd){
 	strcpy(login_field.Password,user_pwd.data());
 	
 	market_api->ReqUserLogin(&login_field,0);
-
+	system_status::wait_code_till_true(MARKET_LOGIN);
 }
 int subsribe_market_data(char* instr_id){
 	market_api->SubscribeMarketData(&instr_id,1);
