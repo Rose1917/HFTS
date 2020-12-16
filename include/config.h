@@ -4,7 +4,11 @@
 #define PAGE_SIZE 5
 #include "common.h"
 //Configuration
+enum market_links{
+    LINK_1,LINK2,LINK3,LINK4,LINK5
+};
 class env_config{
+     
     char* td_front_addr;
     char* md_front_addr;
     int page_size;
@@ -14,6 +18,9 @@ class env_config{
     char* db_pwd;
     char* db_name;
     
+    public:
+    static char* local_md_config[5];
+   
     public:
     env_config(char* td="tcp://180.168.146.187:10101",char* md="tcp://180.168.146.187:10114",char* host="129.211.69.209@",char* user="root",char* pwd="Hhcl199904020",char* dbname="USE HFTS"){
         td_front_addr=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
@@ -76,4 +83,5 @@ class env_config{
 };
 typedef env_config* econf_ptr;
 typedef env_config env_config;
+char* env_config::local_md_config[5]={"tcp://180.168.146.187:10110","tcp://180.168.146.187:10111","tcp://218.202.237.33 :10112","tcp://180.168.146.187:10212","tcp://218.202.237.33:10213"};
 #endif
