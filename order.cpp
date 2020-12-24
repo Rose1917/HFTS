@@ -118,3 +118,7 @@ void order_menu(){
 	log_str("0.exit",GREEN_STR);
     cout<<":";
 }
+
+int order_handler::insert_order(CThostFtdcInputOrderField *pInputOrder, int nRequestID){
+    return trade_api->ReqOrderInsert(pInputOrder,nRequestID);
+}

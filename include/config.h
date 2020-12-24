@@ -18,9 +18,12 @@ class env_config{
     char* db_pwd;
     char* db_name;
     
+    char* investor_id;
+    char* broker_id;
+
     public:
     static char* local_md_config[5];
-   
+
     public:
     env_config(char* td="tcp://180.168.146.187:10101",char* md="tcp://180.168.146.187:10114",char* host="129.211.69.209@",char* user="root",char* pwd="Hhcl199904020",char* dbname="USE HFTS"){
         td_front_addr=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
@@ -29,6 +32,8 @@ class env_config{
         db_user=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
         db_pwd=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
         db_name=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
+        investor_id=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
+        broker_id=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
 
         set_td_front_addr(td);
         set_md_front_addr(md);
@@ -80,6 +85,20 @@ class env_config{
     char* get_db_name(){
         return db_name;
     }
+    char* get_investor_id(){
+        return investor_id;
+    }
+    int set_investor_id(const char* i){
+        return strcpy(investor_id,i)!=NULL;
+    }
+    char* get_broker_id(){
+        return broker_id;
+    }
+    int set_broker_id(const char* i){
+        return strcpy(broker_id,i)!=NULL;
+    }
+    
+
 };
 typedef env_config* econf_ptr;
 typedef env_config env_config;
