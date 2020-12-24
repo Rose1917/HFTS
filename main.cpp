@@ -34,18 +34,12 @@ int main(){
 	//instrument_handler::insert_instru("ic2101");
 	//instrument_handler::insert_instru("ag2101");
 	
-
-	/*
-	future_elemdata e;
-	instrument_handler::insert_depth_instru("ag2101",e);
-	*/
-
+	
 	trader_init();
+	req_authenticate(string("9999"),string("177050"),string("simnow_client_test"),string("0000000000000000"));
+	login_trader(string("177050"),string("3650599367aA"));
 	
 	while(true);
-	
-	
-
 	return 0;
 }
 //asychronorous front connection 
@@ -80,7 +74,32 @@ int trader_init(){
 	trade_api->SubscribePrivateTopic(THOST_TERT_QUICK);
 	trade_api->SubscribePublicTopic(THOST_TERT_QUICK);
 	trade_api->Init();
+	system_status::wait_code_till_true(TRADER_FRONT);
 }
+int req_authenticate(string broker_id,string user_id,string app_id,string authen_code){
+	
+	CThostFtdcReqAuthenticateField auth_field;
+	memset(&auth_field,0,sizeof(auth_field));
+	strcpy(auth_field.BrokerID,"9999");
+	strcpy(auth_field.UserID,"177050");
+	strcpy(auth_field.AppID,"simnow_client_test");
+	strcpy(auth_field.AuthCode,"0000000000000000");
+
+	log_stone(1);
+	//Authenticate
+	trade_api->ReqAuthenticate(&auth_field,0);
+	system_status::wait_code_till_true(AUTHENTICATION);
+}
+int login_trader(string user_name,string pwd){
+	CThostFtdcReqUserLoginField login_field;
+	strcpy(login_field.BrokerID,"9999");
+	strcpy(login_field.UserID,"177050");
+	strcpy(login_field.Password,"3650599367aA");
+	//to-do
+	trade_api->ReqUserLogin(&login_field,0);
+	system_status::wait_code_till_true(TRADER_LOGIN);
+}
+
 void menu(){
 	print_version();
 	key_type key;

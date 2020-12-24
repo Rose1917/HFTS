@@ -6,18 +6,8 @@ extend_spi::extend_spi(CThostFtdcTraderApi* api){
 
 //前端链接函数
 void extend_spi::OnFrontConnected(){
-	log_info("front connectted,now authenticating ...");
-
-	CThostFtdcReqAuthenticateField auth_field;
-	memset(&auth_field,0,sizeof(auth_field));
-	strcpy(auth_field.BrokerID,"9999");
-	strcpy(auth_field.UserID,"177050");
-	strcpy(auth_field.AppID,"simnow_client_test");
-	strcpy(auth_field.AuthCode,"0000000000000000");
-
-	//Authenticate
-	getTapi()->ReqAuthenticate(&auth_field,0);
-
+	log_info("trader front connectted,now authenticating ...");
+	system_status::is_trader_connected=true;
 }
 //认证结果回调函数
 void extend_spi::OnRspAuthenticate(CThostFtdcRspAuthenticateField *rsp_auth_field, CThostFtdcRspInfoField *error_info, int nRequestID, bool bIsLast) {
@@ -32,14 +22,9 @@ void extend_spi::OnRspAuthenticate(CThostFtdcRspAuthenticateField *rsp_auth_fiel
 	log_str("ErrorMsg",error_info->ErrorMsg);	
 	#endif
 	if(!error_info->ErrorID){
+		system_status::is_authen_success=true;
 		log_info("Authentication Success.");
 		log_info("Now Signing in...");
-		CThostFtdcReqUserLoginField login_field;
-		strcpy(login_field.BrokerID,rsp_auth_field->BrokerID);
-		strcpy(login_field.UserID,rsp_auth_field->UserID);
-		strcpy(login_field.Password,"3650599367aA");
-		//to-do
-		this->getTapi()->ReqUserLogin(&login_field,0);
 	}
 }
 //登录结果函数
@@ -52,6 +37,7 @@ void extend_spi::OnRspUserLogin(CThostFtdcRspUserLoginField *rsp_login_field, CT
 	log_str("ErrorMsg",error_info->ErrorMsg);	
 	#endif
 	if(!error_info->ErrorID){
+		system_status::is_trader_logined=true;
 		log_info("Login Success");
 		CThostFtdcQrySettlementInfoField settle_info_field;
 		strcpy(settle_info_field.BrokerID,"9999");
