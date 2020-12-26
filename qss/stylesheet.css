@@ -1,0 +1,76 @@
+*{
+    font-family: "Microsoft Yahei";
+    color: #ffffff;
+}
+QLabel#welcome{
+    font-size: 70px;
+    color:#ffffff;
+    font-weight: 50px;
+}
+QLabel#headImg{
+    background-color: #ffffff;
+    background-clip: padding;
+    border-width: 2px;
+    border-radius: 48px;
+    border-image: url(:/img/head.png);
+}
+.Login{
+    border-radius: 20px;
+    border-image: url(:/img/backgroundblack.png);
+}
+QDialog#signInFilDialog{
+    border-radius: ;
+}
+QLabel#userLabel, QLabel#passwdLabel, QPushButton#signIn{
+    font-size: 20px;
+}
+.QLineEdit{
+    background-color: #ffffff;
+    border-radius: 3px;
+    border: 2px solid;
+    border-color: #2f3542;
+    font-size: 15px;
+    color: #2f3542;
+}
+.QLineEdit:focus{
+    border-color: #eccc68;
+}
+QLabel#tips{
+    font-size: 17px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+QLabel#failTips{
+    font-size: 15px;
+    color: #eb4d4b;
+}
+QPushButton#signInButton{
+    border-radius: 5px;
+    background-color:#ffc840;
+    color: #2f3542;
+}
+QPushButton#signInButton:hover{
+    background-color:#ffd773;
+}
+QPushButton#signInButton:pressed{
+    background-color:#ffb600;
+}
+/* QLabel#iconLabel{
+    border-radius: 10px;
+    border-image: url(:/img/icon.png);
+} */
+QPushButton#close, QPushButton#minimize{
+    border-radius: 13px;
+}
+/* QPushButton#close{
+    border-image: url(:/img/closelight.png);
+}
+QPushButton#minimize{
+    border-image: url(:/img/minimizelight.png);
+}
+QPushButton#close:hover{
+    border-image: url(:/img/closelighthover.png);
+}
+QPushButton#minimize:hover{
+    border-image: url(:/img/minimizelighthover.png);
+} */

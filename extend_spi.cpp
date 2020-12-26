@@ -1,4 +1,5 @@
 #include "include/common.h"
+#include "include/util.h"
 using namespace std;
 extend_spi::extend_spi(CThostFtdcTraderApi* api){
 	setTapi(api);
@@ -50,7 +51,9 @@ void extend_spi::OnRspQrySettlementInfo(CThostFtdcSettlementInfoField *pSettleme
 	log_info("OnRspQrySettlementInfo");
 	if(pSettlementInfo!=NULL){
 		log_str("content:");
-		log_info(pSettlementInfo->Content);
+		char dst[10000];
+		GbkToUtf8(pSettlementInfo->Content,strlen(pSettlementInfo->Content),dst,10000);
+		log_info(dst);
 	}
 	else log_str("content null");
 
@@ -66,6 +69,7 @@ void extend_spi::OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField
 	if(!pRspInfo->ErrorID) log_str("Confirm success");
 	else log_error("Error message:",pRspInfo->ErrorMsg);
 }
+
 void extend_spi::OnRtnOrder(CThostFtdcOrderField *pOrder){
 	log_info("OnRtnOrder function:");
 	cout<<"Order status:";log_str(pOrder->OrderStatus);
@@ -78,6 +82,12 @@ void extend_spi::OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThost
 	if(!pRspInfo->ErrorID) log_info("Insert request send success");
 	else log_info("Error Msg:",pRspInfo->ErrorMsg);
 	fout<<(pRspInfo->ErrorMsg);
+}
+void extend_spi::OnRtnTrade(CThostFtdcTradeField* f){
+
+}
+void extend_spi::OnErrRtnOrderInsert(CThostFtdcInputOrderField *f,CThostFtdcRspInfoField *c){
+
 }
 void extend_spi::OnRspParkedOrderInsert(CThostFtdcParkedOrderField *pParkedOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
 	ofstream fout("output.txt");

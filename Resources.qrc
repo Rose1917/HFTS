@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/backgroundblack.png</file>
+        <file>img/backgroundblackradius.png</file>
+        <file>img/closelight.png</file>
+        <file>img/closelighthover.png</file>
+        <file>img/head.png</file>
+        <file>img/icon.png</file>
+        <file>img/minimizelight.png</file>
+        <file>img/minimizelighthover.png</file>
+        <file>img/ui.vsdx</file>
+        <file>qss/stylesheet.css</file>
+    </qresource>
+</RCC>

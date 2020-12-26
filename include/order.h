@@ -6,7 +6,9 @@ class hfts_order{
 
 };
 class order_handler{
-    //insert order,requestID specify the request id which could be useful while adding the order management
+
+    //insert order,requestID specify the request id which could be useful while get the return code.
+    public:
     static int insert_order(CThostFtdcInputOrderField *pInputOrder, int nRequestID); 
     
 };

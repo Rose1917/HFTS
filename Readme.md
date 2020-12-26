@@ -30,7 +30,8 @@
 
   * Please make sure it is trading period.For more details about the trading period,please look up the following table. 
 
-  
+* RuntimeError:can not open CFlow file in the file ../../source/userapi_se/ThostFtdcApiImplBase.cpp
+  * The directory this application needed is not satisfied
 
 ![image-20201130193607111](/home/march1917/.config/Typora/typora-user-images/image-20201130193607111.png)
 

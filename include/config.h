@@ -7,6 +7,9 @@
 enum market_links{
     LINK_1,LINK2,LINK3,LINK4,LINK5
 };
+enum exchange_ids{
+    ZHONGJINSUO,ZHENGSHANGSUO,DASHANGSUO,SHANGQISUO
+};
 class env_config{
      
     char* td_front_addr;
@@ -23,6 +26,7 @@ class env_config{
 
     public:
     static char* local_md_config[5];
+    static char* local_exchange_id[5];
 
     public:
     env_config(char* td="tcp://180.168.146.187:10101",char* md="tcp://180.168.146.187:10114",char* host="129.211.69.209@",char* user="root",char* pwd="Hhcl199904020",char* dbname="USE HFTS"){
@@ -97,8 +101,6 @@ class env_config{
     int set_broker_id(const char* i){
         return strcpy(broker_id,i)!=NULL;
     }
-    
-
 };
 typedef env_config* econf_ptr;
 typedef env_config env_config;

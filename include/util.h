@@ -11,4 +11,5 @@ int get_day(char*);
 int get_hour(char*);
 int get_min(char*);
 int get_sec(char*);
+int GbkToUtf8(char *str_str, long unsigned int src_len, char *dst_str, long unsigned int dst_len);
 #endif

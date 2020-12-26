@@ -2,6 +2,7 @@
 using namespace std;
 extern api* trade_api;
 extern md_api* market_api;
+
 void order_main(){
     key_type key;
     order_menu();
@@ -120,5 +121,6 @@ void order_menu(){
 }
 
 int order_handler::insert_order(CThostFtdcInputOrderField *pInputOrder, int nRequestID){
+    
     return trade_api->ReqOrderInsert(pInputOrder,nRequestID);
 }

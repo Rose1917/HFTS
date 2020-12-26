@@ -3,7 +3,7 @@
 enum ACTION_TYPE{
     BUY,SELL,NONE
 };
-#define E 2.718281828459045
+static double E=2.718281828459045;
 //Before you use the decision funtion,please send in the interval_month_length
 //Cause it does not have the default value.
 class index_strategy{

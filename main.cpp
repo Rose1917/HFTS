@@ -1,4 +1,6 @@
 #include "include/common.h"
+#include "login.h"
+#include <QApplication>
 #include <iostream>
 #include <unistd.h>
 using namespace std;
@@ -7,10 +9,16 @@ using namespace std;
 api* trade_api=nullptr;
 md_api* market_api=nullptr;
 econf_ptr econf=nullptr;
-int main(){
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    Login w;
+    w.show();
+
 #ifdef DEBUG
 	cout<<"now under the debug mode:"<<endl;
 #endif
+	
 	//init();
 	//sleep(5);
 	//menu();
@@ -30,17 +38,21 @@ int main(){
 	market_init();
 	login_market(nullptr,nullptr);
 	
-	//instrument_handler::insert_instru("ih2101");
-	//instrument_handler::insert_instru("ic2101");
-	//instrument_handler::insert_instru("ag2101");
-	
-	
 	trader_init();
-	req_authenticate(string("9999"),string("177050"),string("simnow_client_test"),string("0000000000000000"));
 	login_trader(string("177050"),string("3650599367aA"));
 	
-	while(true);
+	CThostFtdcInputOrderField f;
+	strcpy(f.BrokerID,econf->get_broker_id());
+	strcpy(f.InvestorID,econf->get_investor_id());
+	strcpy(f.ExchangeID,env_config::local_exchange_id[ZHONGJINSUO]);
+
+	//order_handler::insert_order(&f,0);
+
+
+    cout<<"test1"<<endl;
+    a.exec();
 	return 0;
+
 }
 //asychronorous front connection 
 int market_init(){
@@ -54,7 +66,7 @@ int market_init(){
 	hfts_db::init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
 
 	log_str("=====INIT THE MARKET API=====",YELLOW_STR);
-	market_api=md_api::CreateFtdcMdApi("./market_info/");
+    market_api=md_api::CreateFtdcMdApi("./market_info/");
 	extend_md_spi* market_spi=new extend_md_spi(market_api);
 	market_api->RegisterSpi(market_spi);
 	market_api->RegisterFront(econf->get_md_front_addr());
@@ -91,13 +103,21 @@ int req_authenticate(string broker_id,string user_id,string app_id,string authen
 	system_status::wait_code_till_true(AUTHENTICATION);
 }
 int login_trader(string user_name,string pwd){
+	//Authenticate before logging in
+	req_authenticate(string("9999"),string("177050"),string("simnow_client_test"),string("0000000000000000"));
+
 	CThostFtdcReqUserLoginField login_field;
 	strcpy(login_field.BrokerID,"9999");
 	strcpy(login_field.UserID,"177050");
 	strcpy(login_field.Password,"3650599367aA");
+	
 	//to-do
 	trade_api->ReqUserLogin(&login_field,0);
 	system_status::wait_code_till_true(TRADER_LOGIN);
+
+	//set the id into the memmory
+	econf->set_broker_id(login_field.BrokerID);
+	econf->set_investor_id(login_field.UserID);
 }
 
 void menu(){

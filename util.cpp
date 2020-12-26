@@ -1,4 +1,5 @@
 #include "include/common.h"
+#include "iconv.h"
 using namespace std;
 char* double2c(double d){
     char* temp_str=(char*)malloc(ARRAY_SIZE);
@@ -56,4 +57,21 @@ int get_sec(char* cstr){
     string str(cstr+6,2);
     sscanf(str.data(),"%d",&sec);
     return sec;
+}
+int GbkToUtf8(char *str_str, long unsigned int src_len, char *dst_str, long unsigned int dst_len)
+{
+	iconv_t cd;
+	char **pin = &str_str;
+	char **pout = &dst_str;
+
+	cd = iconv_open("utf8", "gbk");
+	if (cd == 0)
+		return -1;
+	memset(dst_str, 0, dst_len);
+	if (iconv(cd, pin, &src_len, pout, &dst_len) == -1)
+		return -1;
+	iconv_close(cd);
+	**pout = '\0';
+
+	return 0;
 }
