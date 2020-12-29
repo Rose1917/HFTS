@@ -33,19 +33,21 @@ int main(int argc, char *argv[])
 	//init_db();
 	//share_index ix(SHANGZHENG_50,1.1);
 	//ix.update_val();
-	//market_init();
+    //market_init();
+    //log_stone(1);
+    //trader_init();
 
-	market_init();
-	login_market(nullptr,nullptr);
+    //login_market(nullptr,nullptr);
 	
-	trader_init();
-	login_trader(string("177050"),string("3650599367aA"));
+
+    //login_trader(string("177050"),string("3650599367aA"));
 	
+    /*
 	CThostFtdcInputOrderField f;
 	strcpy(f.BrokerID,econf->get_broker_id());
 	strcpy(f.InvestorID,econf->get_investor_id());
 	strcpy(f.ExchangeID,env_config::local_exchange_id[ZHONGJINSUO]);
-
+*/
 	//order_handler::insert_order(&f,0);
 
 
@@ -59,14 +61,14 @@ int market_init(){
 	//Got the configuration object
 	log_str("=====INIT THE DATABASE=====",YELLOW_STR);
 	econf=new env_config();
-	econf->set_md_front_addr("tcp://180.168.146.187:10110");
-	econf->set_md_front_addr(env_config::local_md_config[LINK3]);
+    econf->set_md_front_addr(env_config::local_md_config[LINK5]);
+    econf->set_td_front_addr(env_config::local_td_config[LINK5]);
 
-	//connect to the database	
+    //connect to the database
 	hfts_db::init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
 
 	log_str("=====INIT THE MARKET API=====",YELLOW_STR);
-    market_api=md_api::CreateFtdcMdApi("./market_info/");
+    market_api=md_api::CreateFtdcMdApi();
 	extend_md_spi* market_spi=new extend_md_spi(market_api);
 	market_api->RegisterSpi(market_spi);
 	market_api->RegisterFront(econf->get_md_front_addr());
@@ -78,7 +80,7 @@ int market_init(){
 int trader_init(){
 
 	log_str("=====INIT THE TRADE API=====",YELLOW_STR);
-	trade_api=api::CreateFtdcTraderApi("./info/");
+    trade_api=api::CreateFtdcTraderApi();
 	extend_spi* trade_spi=new extend_spi(trade_api);
 	trade_api->RegisterSpi(trade_spi);
 	trade_api->RegisterFront(econf->get_td_front_addr());

@@ -4,9 +4,10 @@
 #define PAGE_SIZE 5
 #include "common.h"
 //Configuration
-enum market_links{
-    LINK_1,LINK2,LINK3,LINK4,LINK5
-};
+typedef enum market_links{
+    LINK1,LINK2,LINK3,LINK4,LINK5
+}trader_links;
+
 enum exchange_ids{
     ZHONGJINSUO,ZHENGSHANGSUO,DASHANGSUO,SHANGQISUO
 };
@@ -26,6 +27,7 @@ class env_config{
 
     public:
     static char* local_md_config[5];
+    static char* local_td_config[5];
     static char* local_exchange_id[5];
 
     public:
