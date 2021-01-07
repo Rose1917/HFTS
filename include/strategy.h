@@ -1,5 +1,6 @@
 #ifndef STRATEGY_H
 #define STRATEGY_H
+#include <iostream>
 enum ACTION_TYPE{
     BUY,SELL,NONE
 };
@@ -7,10 +8,13 @@ static double E=2.718281828459045;
 //Before you use the decision funtion,please send in the interval_month_length
 //Cause it does not have the default value.
 class index_strategy{
+    std::string name;
+    bool valid_strategy;
     //The following data to calculate the current ideal price of future
     double annual_interest_rate;
     double annual_bonus_rate;
     int interval_month_lenth;
+
 
 
     //The following data to calculate the edges
@@ -51,9 +55,11 @@ public:index_strategy(){
     index_track_error_rate = 0.002;
     cost_borrow_spread = 0.003;
     arbitrage_cost=0.0;
+
+    valid_strategy=false;
 }
 public:
-    ACTION_TYPE decision(double future_price,double index_val);
+    ACTION_TYPE decision(double future_price,double index_val,unsigned month_length);
     
     double getAnnual_interest_rate()
     {
@@ -183,6 +189,21 @@ public:
     void setSecurity_factor(double security_factor)
     {
         this->security_factor = security_factor;
+    }
+public:
+    std::string get_name(){
+        return name;
+    }
+public:
+    void set_name(std::string n){
+        name=n;
+    }
+public:
+    void set_valid_strategy(bool b){
+        valid_strategy=b;
+    }
+    bool get_valid_strategy(){
+        return valid_strategy;
     }
 };
 #endif

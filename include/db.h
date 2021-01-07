@@ -1,6 +1,6 @@
 #ifndef DB_H
 #define DB_H
-#include "index.h"
+#include "include/common.h"
 /*CREATE TABLE TABLE_NAME;*/
 /*USE TABLE_NAME*/
 /*
@@ -23,6 +23,7 @@ NAME VARCHAR(10)
 -- COMMIT;
 -- SELECT * FROM TEST;
 */
+
 class hfts_db{
     static SAConnection *con;
 

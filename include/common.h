@@ -13,9 +13,11 @@
 #include "db/SQLAPI.h"
 #include "db.h"
 #include "subscribtion.h"
-#include "index.h"
 #include "strategy.h"
 #include "status.h"
+#include "error.h"
+#include "initwindow.h"
+#include "index.h"
 #include <bits/stdc++.h>
 #include <sys/types.h>
 #include <signal.h>

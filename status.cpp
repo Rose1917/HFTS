@@ -6,3 +6,6 @@ bool system_status::is_trader_logined=false;
 bool system_status::is_subscribed=false;
 bool system_status::is_unsubscribed=false;
 bool system_status::is_authen_success=false;
+bool system_status::is_settlement=false;
+bool system_status::is_confrim=false;
+bool system_status::is_login_success=false;

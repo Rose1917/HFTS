@@ -2,7 +2,7 @@
 #define STATUS_H
 #include "common.h"
 enum status_code{
-    MARKET_FRONT,TRADER_FRONT,MARKET_LOGIN,TRADER_LOGIN,SUBSCRIBE,UNSUBSCRIBE,AUTHENTICATION
+    MARKET_FRONT,TRADER_FRONT,MARKET_LOGIN,TRADER_LOGIN,SUBSCRIBE,UNSUBSCRIBE,AUTHENTICATION,SETTLEMENT,CONFIRM,LOGIN_SUCCESS
 };
 class system_status{
     public:
@@ -13,6 +13,9 @@ class system_status{
     static bool is_subscribed;
     static bool is_unsubscribed;
     static bool is_authen_success;
+    static bool is_settlement;
+    static bool is_confrim;
+    static bool is_login_success;
     static int wait_code_till_true(status_code c){
         switch(c){
             case MARKET_FRONT:
@@ -35,6 +38,12 @@ class system_status{
                 break;
             case AUTHENTICATION:
                 while(true)if(!is_authen_success)continue;else break;
+                break;
+            case SETTLEMENT:
+                while(true)if(!is_settlement)continue;else break;
+                break;
+            case CONFIRM:
+                while(true)if(!is_confrim)continue;else break;
                 break;
         }
         return 0;

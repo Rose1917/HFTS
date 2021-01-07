@@ -1,5 +1,5 @@
 QT       += core gui
-
+QT += charts
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -16,7 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    *.cpp
+    *.cpp \
 
 HEADERS += \ \
     include/ThostFtdcMdApi.h \
@@ -27,6 +27,7 @@ HEADERS += \ \
     include/config.h \
     include/db.h \
     include/debug.h \
+    include/error.h \
     include/extend_md_spi.h \
     include/extend_spi.h \
     include/index.h \
@@ -37,11 +38,36 @@ HEADERS += \ \
     include/status.h \
     include/strategy.h \
     include/subscribtion.h \
-    include/util.h
+    include/util.h \
+    include/accountpage.h \
+    include/blockview.h \
+    include/clickablelabel.h \
+    include/datapage.h \
+    include/datapageitem.h \
+    include/datapageitemdefault.h \
+    include/datapageiteminput.h \
+    include/editlabel.h \
+    include/initwindow.h \
+    include/linechartblockview.h \
+    include/little_stratgymanageitem.h \
+    include/mainwindow.h \
+    include/nontitle.h \
+    include/orderpage.h \
+    include/orderpageitem.h \
+    include/passwdchangepage.h \
+    include/sponsorpage.h \
+    include/stratgymanageitem.h \
+    include/stratgymanageitemdefault.h \
+    include/stratgymanagepage.h \
+    include/testthread.h \
+    include/tradingpage.h \
+    include/webconfig.h \
+    include/datapageitemshowmore.h \
 
 
 FORMS += \
-    login.ui
+    login.ui \
+    mainwindow.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

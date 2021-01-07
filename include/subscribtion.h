@@ -16,21 +16,22 @@ typedef struct future_elemdata{
 
 class instrument_item{
     std::string instr_id;
-    future_eledata* prices[market_buffer_size];
+
+    std::list<future_eledata*>* prices;
     price_write_index i;
     unsigned int valid_c;
 
     public:instrument_item(char* name){
         instr_id.assign(name);
+        prices=new std::list<future_eledata*>();
         i=0;
         valid_c=0;
     }
     void insert_element_data(future_elemdata* e){
-        prices[i]=e;
-        i=NEXT_INDEX(i);
-        valid_c=COUNT_PLUS(valid_c);
+        if(prices->size()==market_buffer_size)prices->pop_front();
+        prices->push_back(e);
     }
-    future_elemdata** get_prices(){
+    std::list<future_eledata*>* get_prices(){
         return prices;
     }
     unsigned int get_wirte_index(){

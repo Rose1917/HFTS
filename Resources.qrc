@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
+        <file>qss/stylesheet.css</file>
+        <file>img/akkarin.png</file>
         <file>img/backgroundblack.png</file>
         <file>img/backgroundblackradius.png</file>
         <file>img/closelight.png</file>
@@ -9,6 +11,21 @@
         <file>img/minimizelight.png</file>
         <file>img/minimizelighthover.png</file>
         <file>img/ui.vsdx</file>
-        <file>qss/stylesheet.css</file>
+        <file>img/交易.png</file>
+        <file>img/停止交易.png</file>
+        <file>img/删除.png</file>
+        <file>img/带圈添加.png</file>
+        <file>img/开始交易.png</file>
+        <file>img/我的.png</file>
+        <file>img/添加合约.png</file>
+        <file>img/添加监控.png</file>
+        <file>img/白色恶魔.jpg</file>
+        <file>img/策略.png</file>
+        <file>img/策略子项目.png</file>
+        <file>img/行情.png</file>
+        <file>img/订单.png</file>
+        <file>img/资助我们.png</file>
+        <file>img/黑金诱惑.jpg</file>
+        <file>img/移除监控.png</file>
     </qresource>
 </RCC>

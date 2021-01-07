@@ -1,11 +1,17 @@
 #include "include/common.h"
+#include "linechartblockview.h"
 #include <curl/curl.h>
+#include <pthread.h>
 #define DEBUG
 using namespace std;
 cm_buffer index_buffer;
 SADateTime last_tick_time();
-
+extern InitWindow* init_window;
 //redefine == of SADateTime
+qreal share_index::shangzheng50_count=0.0;
+qreal share_index::zhongzheng500_count=0.0;
+qreal share_index::hushen300_count=0.0;
+
 bool operator ==(const SADateTime s1,const SADateTime s2){
   return (SAString)s1==(SAString)s2&&s1.Fraction()==s2.Fraction();
 }
@@ -31,7 +37,7 @@ int parse_date_time(std::string str,SADateTime** s){
     return 0;
 }
 
-//Parse the index type
+//Parse the index type by identifying the character of the source string
 index_t parse_index_type(const char* s){
     if(s[16]=='0')return SHANGZHENG_50;
     if(s[16]=='9')return ZHONGZHENG_500;
@@ -90,6 +96,7 @@ size_t write_to_buffer(void *buffer, size_t size, size_t nmemb, void *userp)
     //Compare the date time 
     if((*update_time)==(*index_buffer.last_tick_time[index_type])){
       cout<<"redunt data"<<endl;
+      index_buffer.is_updated[index_type]=false;
     } 
     else{
       cout<<"Got the newer data,recording the data in the common buffer..."<<endl;
@@ -110,8 +117,10 @@ int share_index::update_val(){
 
   std::string url_str="http://hq.sinajs.cn/list=sh";
   url_str+=this->post_para[this->get_index_type()];
+
   curl_global_init(CURL_GLOBAL_ALL);
   curl = curl_easy_init();
+
   if(curl) {
     curl_easy_setopt(curl, CURLOPT_URL, url_str.data());
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION,write_to_buffer);
@@ -119,15 +128,18 @@ int share_index::update_val(){
     res = curl_easy_perform(curl);
         /* Check for errors */
         if(res != CURLE_OK)
-          fprintf(stderr, "curl_easy_perform() failed: %s\n",
-          curl_easy_strerror(res));
-          /* always cleanup */
-          curl_easy_cleanup(curl);
+          fprintf(stderr, "curl_easy_perform() failed: %s \n the error code:%d",
+          curl_easy_strerror(res),res);
+
+        /* always cleanup */
+        curl_easy_cleanup(curl);
 
     //Got the data and store it in the list
     if(index_buffer.is_updated[type]){
       index_eledata temp(*(index_buffer.last_tick_time[type]),index_buffer.val[type]);
       insert_data(temp);
+      cout<<"insert the index data success";
+      index_buffer.is_updated[type]=false;
     }
   }
   curl_global_cleanup();
@@ -136,15 +148,46 @@ int share_index::update_val(){
 int share_index::insert_data(index_eledata& e){
   if(market_data.size()==MEM_MAX_SIZE)market_data.pop_front();
   market_data.push_back(e);
+  //insert data into the line graph
+
+
+  LineChartBlockView* tp=init_window->_datapage->getBlockView(this->type+1);
   //database operation
+  switch(this->type){
+      case SHANGZHENG_50:
+          tp->update_line(shangzheng50_count,e.value,0);
+          shangzheng50_count+=1.0;
+          break;
+    case ZHONGZHENG_500:
+          tp->update_line(zhongzheng500_count,e.value,0);
+          zhongzheng500_count+=1.0;
+          break;
+    case HUSHEN_300:
+          tp->update_line(hushen300_count,e.value,0);
+          hushen300_count+=1.0;
+          break;
+    default:
+          log_error("share_index::insert_data:an error occurred while inserting data into the front view.");
+          break;
+  }
+
+  //insert data into the database
   hfts_db::insert_index_data(this->type,e);
+
   return 0;
 }
 share_index::share_index(index_t t,index_val v){
         this->type=t;this->value=v;
         hfts_db::create_index(index_name[t]);
 }
-//Here we start a new process
+void* keep_collecting_data(void* p){
+    share_index* t=(share_index*)p;
+    while(true){
+        t->update_val();
+        sleep(2);
+    }
+}
+//Here we start a new thread to keep collecting data
 void share_index::start_collecting_data(){
-  pid_t pid;
+    pthread_create(&tid,NULL,&keep_collecting_data,this);
 }

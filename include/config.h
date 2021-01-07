@@ -9,7 +9,7 @@ typedef enum market_links{
 }trader_links;
 
 enum exchange_ids{
-    ZHONGJINSUO,ZHENGSHANGSUO,DASHANGSUO,SHANGQISUO
+    ZHONGJINSUO,ZHENGSHANGSUO,DASHANGSUO,SHANGNENGYUAN,SHANGQISUO
 };
 class env_config{
      

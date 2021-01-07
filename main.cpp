@@ -1,6 +1,13 @@
 #include "include/common.h"
 #include "login.h"
+#include "stratgymanageitem.h"
+#include "little_stratgymanageitem.h"
+#include "datapageitem.h"
+#include "datapage.h"
+#include "orderpageitem.h"
+#include "initwindow.h"
 #include <QApplication>
+#include <QDebug>
 #include <iostream>
 #include <unistd.h>
 using namespace std;
@@ -9,12 +16,29 @@ using namespace std;
 api* trade_api=nullptr;
 md_api* market_api=nullptr;
 econf_ptr econf=nullptr;
+
+//The opinter of share index
+share_index* shangzheng;
+share_index* zhongzheng;
+share_index* hushen;
+
+//ui pointer
+InitWindow* init_window;
+
 int main(int argc, char *argv[])
 {
+    /*qt setting*/
+
     QApplication a(argc, argv);
+    general_init();
+
+    market_init();
+    login_market(nullptr,nullptr);
+
+    trader_init();
+
     Login w;
     w.show();
-
 #ifdef DEBUG
 	cout<<"now under the debug mode:"<<endl;
 #endif
@@ -22,7 +46,6 @@ int main(int argc, char *argv[])
 	//init();
 	//sleep(5);
 	//menu();
-	//create_contract("ag2012");
 	//share_index ix(SHANGZHENG_50,0);
 	
 	//ix.update_val();
@@ -33,40 +56,37 @@ int main(int argc, char *argv[])
 	//init_db();
 	//share_index ix(SHANGZHENG_50,1.1);
 	//ix.update_val();
-    //market_init();
-    //log_stone(1);
+
     //trader_init();
-
-    //login_market(nullptr,nullptr);
 	
 
-    //login_trader(string("177050"),string("3650599367aA"));
-	
-    /*
-	CThostFtdcInputOrderField f;
-	strcpy(f.BrokerID,econf->get_broker_id());
-	strcpy(f.InvestorID,econf->get_investor_id());
-	strcpy(f.ExchangeID,env_config::local_exchange_id[ZHONGJINSUO]);
-*/
-	//order_handler::insert_order(&f,0);
+    //insert_order();
+    //a.exec();
 
-
-    cout<<"test1"<<endl;
+    //main_init();
     a.exec();
-	return 0;
+    return 0;
 
 }
-//asychronorous front connection 
-int market_init(){
-	//Got the configuration object
-	log_str("=====INIT THE DATABASE=====",YELLOW_STR);
-	econf=new env_config();
+//this function does the following things:
+//*1.Set the configuration object
+//*2.connect to the database
+int general_init(){
+    //Got the configuration object
+    econf=new env_config();
     econf->set_md_front_addr(env_config::local_md_config[LINK5]);
     econf->set_td_front_addr(env_config::local_td_config[LINK5]);
 
     //connect to the database
-	hfts_db::init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
+    log_str("=====INIT THE DATABASE=====",YELLOW_STR);
 
+    if(hfts_db::init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name()))
+    exit(-1);
+
+    return 0;
+}
+//asychronorous front connection 
+int market_init(){
 	log_str("=====INIT THE MARKET API=====",YELLOW_STR);
     market_api=md_api::CreateFtdcMdApi();
 	extend_md_spi* market_spi=new extend_md_spi(market_api);
@@ -75,6 +95,10 @@ int market_init(){
 	market_api->Init();
 	//wait the front connected.
 	system_status::wait_code_till_true(MARKET_FRONT);
+
+    //set the brokerid and the investor id
+    econf->set_broker_id("9999");
+    econf->set_investor_id("177050");
 }
 
 int trader_init(){
@@ -90,6 +114,7 @@ int trader_init(){
 	trade_api->Init();
 	system_status::wait_code_till_true(TRADER_FRONT);
 }
+
 int req_authenticate(string broker_id,string user_id,string app_id,string authen_code){
 	
 	CThostFtdcReqAuthenticateField auth_field;
@@ -99,7 +124,6 @@ int req_authenticate(string broker_id,string user_id,string app_id,string authen
 	strcpy(auth_field.AppID,"simnow_client_test");
 	strcpy(auth_field.AuthCode,"0000000000000000");
 
-	log_stone(1);
 	//Authenticate
 	trade_api->ReqAuthenticate(&auth_field,0);
 	system_status::wait_code_till_true(AUTHENTICATION);
@@ -110,18 +134,37 @@ int login_trader(string user_name,string pwd){
 
 	CThostFtdcReqUserLoginField login_field;
 	strcpy(login_field.BrokerID,"9999");
-	strcpy(login_field.UserID,"177050");
-	strcpy(login_field.Password,"3650599367aA");
+    strcpy(login_field.UserID,user_name.data());
+    strcpy(login_field.Password,pwd.data());
 	
 	//to-do
 	trade_api->ReqUserLogin(&login_field,0);
-	system_status::wait_code_till_true(TRADER_LOGIN);
+    system_status::wait_code_till_true(TRADER_LOGIN);
+    system_status::is_trader_logined=false;
 
 	//set the id into the memmory
 	econf->set_broker_id(login_field.BrokerID);
 	econf->set_investor_id(login_field.UserID);
-}
 
+    if(system_status::is_login_success){
+        system_status::wait_code_till_true(CONFIRM);
+        system_status::is_confrim=false;
+        system_status::is_login_success=false;
+        return 0;
+    }
+    else return -1;
+}
+//After login success,this function will start up the three index and keep colloecting the data
+void main_init(){
+    log_error("main init");
+    shangzheng=new share_index(SHANGZHENG_50,0.0);
+    zhongzheng=new share_index(ZHONGZHENG_500,0.0);
+    hushen=new share_index(HUSHEN_300,0.0);
+
+    shangzheng->start_collecting_data();
+    zhongzheng->start_collecting_data();
+    hushen->start_collecting_data();
+}
 void menu(){
 	print_version();
 	key_type key;

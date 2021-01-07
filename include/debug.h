@@ -6,10 +6,10 @@ enum STR_COLOR{
 
 //The printf format control string
 #define COLOR_NONE "\033[0m" //表示清除前面设置的格式
-#define RED "\033[1;31;40m" //40表示背景色为黑色, 1 表示高亮
-#define BLUE "\033[1;34;40m"
-#define GREEN "\033[1;32;40m"
-#define YELLOW "\033[1;33;40m"
+#define RED "\033[0;31;40m" //40表示背景色为黑色, 1 表示高亮,47 is white
+#define BLUE "\033[0;34;40m"
+#define GREEN "\033[0;32;40m"
+#define YELLOW "\033[0;33;40m"
 
 //The error code
 enum ERROR_CODE{

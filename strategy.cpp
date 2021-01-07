@@ -1,6 +1,8 @@
 #include "include/common.h"
 using namespace std;
-ACTION_TYPE index_strategy::decision(double future_price,double index_val){
+ACTION_TYPE index_strategy::decision(double future_price,double index_val,unsigned month_length){
+    interval_month_lenth=month_length;
+
     //Calculate the ideal price of future
     ideal_price=index_val*pow(E,(annual_interest_rate-annual_bonus_rate)*interval_month_lenth/12.0);
     cout<<"ideal price"<<ideal_price<<endl;

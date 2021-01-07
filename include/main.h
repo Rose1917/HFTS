@@ -17,6 +17,8 @@ int market_init();
 int trader_init();
 int login_market(char*,char*);
 int subsribe_market_data(char*);
+int general_init();
+void main_init();
 
 int req_authenticate(std::string broker_id=nullptr,std::string user_id=nullptr,std::string app_id=nullptr,std::string authen_code=nullptr);
 int login_trader(std::string user_name=nullptr,std::string pwd=nullptr);

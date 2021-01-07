@@ -14,12 +14,18 @@ typedef struct index_eledata{
 class share_index{
     index_t type;
     index_val value;
+    pthread_t tid;
     std::list<index_eledata> market_data;
     char* post_para[4]={"000016","000905","000300"};
     char* index_name[4]={"shangzheng50","zhongzheng500","hushen300"};
-    
+
+
     public:
-    share_index(index_t t,index_val v=0);
+    static qreal shangzheng50_count;
+    static qreal zhongzheng500_count;
+    static qreal hushen300_count;
+
+    share_index(index_t t,index_val v=0.0);
     void start_collecting_data();
     int update_val();
     int insert_data(index_eledata& e);

@@ -1,8 +1,11 @@
 #include "login.h"
 //#include "ui_login.h"
+#include "initwindow.h"
+#include "nontitle.h"
 #include <QDesktopWidget>
+#include "include/main.h"
 #include<QApplication>
-
+extern InitWindow* init_window;
 Login::Login(QWidget *parent)
     : QWidget(parent)
     //, ui(new Ui::Login)
@@ -235,10 +238,20 @@ void Login::signIn(){
         return;
     }
 
+
+    int res=login_trader(user.toStdString(),passwd.toStdString());
     // TODO 判断用户名密码是否匹配
-    if(false){
-        failTips->clear();
-        this->close();
+    if(!res){
+        passwdInput->clear();
+        failTips->setText("Login success");
+        //this->close();
+        nontitle* n = new nontitle();
+        init_window=new InitWindow();
+        main_init();
+        n->setContent(init_window);
+        n->showincenter();
+        //Get into the main menu
+
     }
     else{
         // 清空密码栏

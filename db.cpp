@@ -24,21 +24,33 @@ using namespace std;
 //Hhcl199904020
 SAConnection* hfts_db::con=nullptr;
 int hfts_db::init_db(char* host_name,char* user_name,char* pwd,char* db_name){
-	 try {
+    //connect to the database
+    try {
         #ifdef DEBUG
         cout<<"host_name"<<host_name<<" user name "<<user_name<<" pwd "<<pwd<<" db_name "<<db_name<<endl;
         #endif
         con=new SAConnection();
         get_connection()->Connect(host_name, user_name, pwd, SA_MySQL_Client);
-        SACommand select(get_connection(), db_name);
-        select.Execute();
+
     }
     catch(SAException &x) {
         get_connection()->Rollback();
         printf("%s\n", x.ErrText().GetMultiByteChars());
-        if(x.ErrNativeCode()==CONNECTION_TIME_OUT)log_error("Connection time out,please check your internet connection");
+        if(x.ErrNativeCode()==CONNECTION_TIME_OUT){
+            log_error("Connection time out,please check your internet connection");
+        }
     }
 
+    //select the database
+    try {
+        SACommand select(get_connection(), db_name);
+        select.Execute();
+    } catch (SAException x) {
+        get_connection()->Rollback();
+        printf("%s\n", x.ErrText().GetMultiByteChars());
+    }
+
+    //test the result
     if(get_connection()->isConnected()){
         log_error("Connect to the data base success");
         return 0;

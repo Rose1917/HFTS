@@ -2,7 +2,7 @@
 using namespace std;
 extern api* trade_api;
 extern md_api* market_api;
-
+extern econf_ptr econf;
 void order_main(){
     key_type key;
     order_menu();
@@ -66,45 +66,22 @@ void parked_order(){
     log_str("Req order insert end");
 }
 void insert_order(){
-    CThostFtdcInputOrderField order_info;
-    char buffer[100];
-    strcpy(order_info.BrokerID,"9999");
-    strcpy(order_info.ExchangeID,"SHFE");
-    strcpy(order_info.UserID,"177050");
-    strcpy(order_info.InvestorID,"177050");
-    
-    log_str("Please input the instrument ID:");
-    cin>>buffer;
-    strcpy(order_info.InstrumentID,buffer);
-
-    key_type key;
-    log_str("Please choose the exchange direction:");
-    log_str("1.Buy");
-    log_str("2.Sell");
-    cin>>key;
-    if(key=='1')order_info.Direction=THOST_FTDC_D_Buy;
-    else order_info.Direction=THOST_FTDC_D_Sell;
-
-    int volume;
-    log_str("Please input the volume total:");
-    cin>>volume;
-    order_info.VolumeTotalOriginal=volume;
-
-    //Some default option
-    order_info.OrderPriceType=THOST_FTDC_OPT_LimitPrice;
-    order_info.LimitPrice=6000;
-    order_info.OrderPriceType=THOST_FTDC_OPT_LimitPrice;
-    order_info.ContingentCondition=THOST_FTDC_CC_Immediately;
-    order_info.TimeCondition=THOST_FTDC_TC_GFD;
-    //order_info.VolumeTotalOriginal=THOST_FTDC_VC_AV;
-    order_info.CombOffsetFlag[0] = THOST_FTDC_OF_Open;
-    order_info.CombHedgeFlag[0] = THOST_FTDC_HF_Hedge;
-    //strcpy(order_info.GTDDate,"");
-    strcpy(order_info.OrderRef,"1");
-    order_info.MinVolume=1;
-    order_info.ForceCloseReason=THOST_FTDC_FCC_NotForceClose;
-    order_info.IsAutoSuspend=0;
-    trade_api->ReqOrderInsert(&order_info,0);
+    CThostFtdcInputOrderField orderfield ={0};
+    strcpy(orderfield.BrokerID, "9999");
+    strcpy(orderfield.InvestorID, "177050");
+    strcpy(orderfield.ExchangeID, env_config::local_exchange_id[ZHONGJINSUO]);
+    strcpy(orderfield.InstrumentID, "IF2101");
+    orderfield.OrderPriceType = THOST_FTDC_OPT_LimitPrice;
+    orderfield.Direction = THOST_FTDC_D_Buy;
+    orderfield.LimitPrice = 5116.0;
+    orderfield.VolumeTotalOriginal = 1;
+    orderfield.ContingentCondition = THOST_FTDC_CC_Immediately;
+    orderfield.CombOffsetFlag[0] = THOST_FTDC_OF_Open;
+    orderfield.CombHedgeFlag[0] = THOST_FTDC_HF_Speculation;
+    orderfield.TimeCondition = THOST_FTDC_TC_GFD ;
+    orderfield.VolumeCondition = THOST_FTDC_VC_AV;
+    orderfield.ForceCloseReason = THOST_FTDC_FCC_NotForceClose;
+    int ret = trade_api->ReqOrderInsert(&orderfield, 0);
 
     log_str("Req order insert end");
 }

@@ -18,6 +18,7 @@ class extend_spi :public CThostFtdcTraderSpi{
 	void OnRspSettlementInfoConfirm(CThostFtdcSettlementInfoConfirmField *pSettlementInfoConfirm, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast);
 	
 	//收到订单，这个函数会被回调：CTP风控通过之后、交易所风控通过之后、交易通过之后被调用
+
 	void OnRtnOrder(CThostFtdcOrderField *pOrder);
 	//交易成功
 	void OnRtnTrade(CThostFtdcTradeField *pTrade);

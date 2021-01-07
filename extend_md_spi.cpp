@@ -1,4 +1,5 @@
 #include "include/common.h"
+#include "datapage.h"
 #define PRICE_MAX_LEN 20
 using namespace std;
 char* subID[]={"IF2012","IF2101","IF2103","IH2012","IH2101","IH2103","IC2012","IC2101","IC2103","IC2106"};
@@ -79,13 +80,13 @@ void extend_md_spi::OnRtnDepthMarketData(CThostFtdcDepthMarketDataField *data){
 	future_elemdata* e=new future_elemdata(current_time,data->LastPrice);
 	instrument_handler::insert_depth_instru(data->InstrumentID,e);
 
+    (*(datapage::item_set))[data->InstrumentID]->setprice(data->LastPrice);
 
 	log_str("Instrument ID:",data->InstrumentID,GREEN_STR,1);
 	log_str("Trading Day:",data->TradingDay,GREEN_STR,1);
 	log_str("Update time:",data->UpdateTime,GREEN_STR,1);
 	log_str("Update mills:",int2c(data->UpdateMillisec),GREEN_STR,1);
 	log_str("Last Price:",double2c(data->LastPrice),GREEN_STR,1);
-	cout<<"ASK PRICE"<<data->AskPrice1<<endl;
 	log_str("Ask Price:",double2c(data->AskPrice1),GREEN_STR,1);
 	log_str("Ask Volume:",double2c(data->AskVolume1),GREEN_STR,1);
 	log_str("Bid Price:",double2c(data->BidPrice1),GREEN_STR,1);
