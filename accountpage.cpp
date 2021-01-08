@@ -1,19 +1,23 @@
 ﻿#include "accountpage.h"
-
+#include "include/config.h"
+extern econf_ptr econf;
 accountpage::accountpage()
 {
     market_net = 0;
     trading_net = 0;
     icon = new QLabel();
     icon->setStyleSheet("max-width:150px;max-height:150px;min-height:150px;min-width:150px;border-image:url(':/img/akkarin.png');border-radius:75");
-    name = new QLabel(u8"用户名:default");
+    name = new QLabel(u8"用户名:"+QString::fromStdString(econf->get_investor_id()));
     webconf = new clickablelabel(u8"网络配置");
-    passwdchange = new clickablelabel(u8"忘记密码");
+    passwdchange = new clickablelabel(u8"<a href='http://simnow.com.cn/static/resetPWDPage.action' style='text-decoration:none;color:#ffffff'>忘记密码<\a>");
+    passwdchange->setOpenExternalLinks(true);
+
     sponsorus = new clickablelabel(u8"资助我们");
     money = new QLabel(u8"余额0.0");
-    ctpversion = new QLabel("v1.0.0");
+    ctpversion = new QLabel(QString::fromStdString(econf->get_ctp_version()));
     ctpversion->setStyleSheet("color:rgb(175,175,175)");
-    tradingday = new QLabel("2020-1-1");
+
+    tradingday = new QLabel(QString::fromStdString(econf->get_trading_day()));
     tradingday->setStyleSheet("color:rgb(175,175,175)");
 
     mainlayout = new QVBoxLayout();
@@ -42,7 +46,6 @@ accountpage::accountpage()
     webconfigtitle->setContent(_webconfig);
 
     connect(webconf,SIGNAL(clicked()),this,SLOT(on_webconf_clicked()));
-    connect(passwdchange,SIGNAL(clicked()),this,SLOT(on_passwdchange_clicked()));
     connect(sponsorus,SIGNAL(clicked()),this,SLOT(on_sponsorus_clicked()));
     connect(_webconfig,SIGNAL(signal_submit()),this,SLOT(on_webconf_submit()));
 

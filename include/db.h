@@ -1,6 +1,6 @@
 #ifndef DB_H
 #define DB_H
-#include "include/common.h"
+#include "common.h"
 /*CREATE TABLE TABLE_NAME;*/
 /*USE TABLE_NAME*/
 /*

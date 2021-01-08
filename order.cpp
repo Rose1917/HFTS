@@ -66,24 +66,8 @@ void parked_order(){
     log_str("Req order insert end");
 }
 void insert_order(){
-    CThostFtdcInputOrderField orderfield ={0};
-    strcpy(orderfield.BrokerID, "9999");
-    strcpy(orderfield.InvestorID, "177050");
-    strcpy(orderfield.ExchangeID, env_config::local_exchange_id[ZHONGJINSUO]);
-    strcpy(orderfield.InstrumentID, "IF2101");
-    orderfield.OrderPriceType = THOST_FTDC_OPT_LimitPrice;
-    orderfield.Direction = THOST_FTDC_D_Buy;
-    orderfield.LimitPrice = 5116.0;
-    orderfield.VolumeTotalOriginal = 1;
-    orderfield.ContingentCondition = THOST_FTDC_CC_Immediately;
-    orderfield.CombOffsetFlag[0] = THOST_FTDC_OF_Open;
-    orderfield.CombHedgeFlag[0] = THOST_FTDC_HF_Speculation;
-    orderfield.TimeCondition = THOST_FTDC_TC_GFD ;
-    orderfield.VolumeCondition = THOST_FTDC_VC_AV;
-    orderfield.ForceCloseReason = THOST_FTDC_FCC_NotForceClose;
-    int ret = trade_api->ReqOrderInsert(&orderfield, 0);
+    //FOK
 
-    log_str("Req order insert end");
 }
 void order_menu(){
     log_str("\tMENU\t",GREEN_STR);

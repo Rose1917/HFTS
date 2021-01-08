@@ -3,6 +3,8 @@
 #include<QDir>
 #include<QDebug>
 #include<QDateTime>
+#include<iostream>
+#include"common.h"
 little_stratgymanageitem::little_stratgymanageitem(QString p)
 {
     path = p;
@@ -66,9 +68,13 @@ void little_stratgymanageitem::on_delete_clicked(){
 }
 void little_stratgymanageitem::on_change(){
     stratgymanageitem* s = qobject_cast<stratgymanageitem*>(sender());
+    QString basepath = QDir::currentPath();
+    QString dirpath = basepath+"/stratgies/";
+    //log_error("little_stratgymanageitem::on_change()");
+    //std::cout<<dirpath.toStdString().data()<<std::endl;
     QDir dir;
-    if(!dir.exists("./stratgies")){
-        dir.mkdir("./stratgies");
+    if(!dir.exists(dirpath)){
+        dir.mkdir(dirpath);
     }
     QFile file(path);
 

@@ -12,12 +12,13 @@
 #include "main.h"
 #include "db/SQLAPI.h"
 #include "db.h"
-#include "subscribtion.h"
 #include "strategy.h"
 #include "status.h"
 #include "error.h"
 #include "initwindow.h"
+#include "trade_handler.h"
 #include "index.h"
+#include "subscribtion.h"
 #include <bits/stdc++.h>
 #include <sys/types.h>
 #include <signal.h>

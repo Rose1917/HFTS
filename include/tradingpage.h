@@ -15,7 +15,7 @@ class tradingpage : public QWidget
 public:
     tradingpage();
     QComboBox* get_stratgyselector();
-    QTextEdit* get_recordtext();
+    QPlainTextEdit* get_recordtext();
 private:
     QComboBox* stratgyselector;
 
@@ -23,7 +23,7 @@ private:
     clickablelabel* stop;
     clickablelabel* clear;
 
-    QTextEdit* recordtext;
+    QPlainTextEdit* recordtext;
 
     QVBoxLayout* mainlayout;
     QHBoxLayout* toollayout;
@@ -35,6 +35,7 @@ private slots:
     void on_start();
     void on_stop();
     void on_clear();
+    void appendText(QString text);
 };
 
 #endif // TRADINGPAGE_H

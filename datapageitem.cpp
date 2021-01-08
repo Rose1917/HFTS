@@ -84,17 +84,14 @@ void datapageitem::on_showmore_clicked(){
 }
 void datapageitem::on_addtostratgy_clicked(){
     mark->setText(u8"已监控");
-
-    //emit addtostratgy_clicked();
-
-    /*TO-DO*/
+    trade_handler::add_instrument(name->text());
 }
 void datapageitem::on_removestratgy_clicked(){
     mark->setText("");
-
+    trade_handler::remove_instrument(name->text());
     /*TO-DO*/
 
-//3650599367aA
+
 }
 QString datapageitem::getname(){
     return name->text();

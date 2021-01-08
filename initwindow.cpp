@@ -1,5 +1,4 @@
-﻿#include "initwindow.h"
-//#include "include/trade_handler.h"
+﻿#include "include/common.h"
 
 void InitWindow::init_data_page(){
     _datapage = new datapage();
@@ -8,6 +7,8 @@ void InitWindow::init_data_page(){
 void InitWindow::init_order_page(){
     _orderpage = new orderpage();
     ((QGridLayout*)(order_page->layout()))->addWidget(_orderpage);
+    connect(this,SIGNAL(addorder(QString,QString,QString)),_orderpage,SLOT(addorder(QString,QString,QString)));
+    connect(this,SIGNAL(setorderstatus(QString,QString)),_orderpage,SLOT(setstatus(QString,QString)));
 }
 void InitWindow::init_account_page(){
     _accountpage = new accountpage();
@@ -28,6 +29,7 @@ void InitWindow::init_trading_page(){
     }
     connect(_tradingpage,SIGNAL(signal_start()),this,SLOT(on_trading_start()));
     connect(_tradingpage,SIGNAL(signal_stop()),this,SLOT(on_trading_stop()));
+    connect(this,SIGNAL(appendText(QString)),_tradingpage,SLOT(appendText(QString)));
     ((QGridLayout*)(trading_page->layout()))->addWidget(_tradingpage);
 }
 void InitWindow::on_enlarge(LineChartBlockView* view){
@@ -164,16 +166,16 @@ void InitWindow::on_stratgy_changed(){
 void InitWindow::on_trading_start(){
     if(trading_status==1)return;
     QList<little_stratgymanageitem*> list = _strategypage->get_stratgies();
-    QTextEdit* record = _tradingpage->get_recordtext();
+    QPlainTextEdit* record = _tradingpage->get_recordtext();
     if(list.size()==0){
-        record->append(u8"未选择策略，请检查您的策略配置");
+        record->appendPlainText(u8"未选择策略，请检查您的策略配置");
     }
     else{
         trading_status = 1;
         QComboBox* cb = _tradingpage->get_stratgyselector();
         little_stratgymanageitem* nowstratgy = list.at(cb->currentIndex());
-        record->append(u8"------------------------------------------------");
-        record->append(u8"交易开始");
+        record->appendPlainText(u8"------------------------------------------------");
+        record->appendPlainText(u8"交易开始");
         double r;//年利率
         double q;//年红利
         double futures_commission;//期货双边手续费
@@ -196,25 +198,30 @@ void InitWindow::on_trading_start(){
                               &stock_impact_cost,
                               &stock_index_error,
                               &borrowing_cost);
-        record->append(u8"现在正在使用的策略为:"+name);
-        record->append(u8"\t年利率\t\t\t"+QString::number(r));
-        record->append(u8"\t年红利\t\t\t"+QString::number(q));
-        record->append(u8"\t期货双边手续费\t\t"+QString::number(futures_commission));
-        record->append(u8"\t期货买卖冲击成本\t\t"+QString::number(futures_cost));
-        record->append(u8"\t股票买卖双边手续费\t"+QString::number(stock_commission));
-        record->append(u8"\t股票买卖冲击成本\t\t"+QString::number(stock_cost));
-        record->append(u8"\t股票交易印花税\t\t"+QString::number(stamp_duty));
-        record->append(u8"\t股票买卖冲击成本\t\t"+QString::number(stock_impact_cost));
-        record->append(u8"\t股票指数跟踪误差\t\t"+QString::number(stock_index_error));
-        record->append(u8"\t借贷利差成本\t\t"+QString::number(borrowing_cost));
+        record->appendPlainText(u8"现在正在使用的策略为:"+name);
+        record->appendPlainText(u8"\t年利率\t\t\t"+QString::number(r));
+        record->appendPlainText(u8"\t年红利\t\t\t"+QString::number(q));
+        record->appendPlainText(u8"\t期货双边手续费\t\t"+QString::number(futures_commission));
+        record->appendPlainText(u8"\t期货买卖冲击成本\t\t"+QString::number(futures_cost));
+        record->appendPlainText(u8"\t股票买卖双边手续费\t"+QString::number(stock_commission));
+        record->appendPlainText(u8"\t股票买卖冲击成本\t\t"+QString::number(stock_cost));
+        record->appendPlainText(u8"\t股票交易印花税\t\t"+QString::number(stamp_duty));
+        record->appendPlainText(u8"\t股票买卖冲击成本\t\t"+QString::number(stock_impact_cost));
+        record->appendPlainText(u8"\t股票指数跟踪误差\t\t"+QString::number(stock_index_error));
+        record->appendPlainText(u8"\t借贷利差成本\t\t"+QString::number(borrowing_cost));
         int market_net;
         int trading_net;
         _accountpage->getnetconf(&market_net,&trading_net);
-        record->append(u8"网络配置:");
-        record->append(u8"\t市场配置:link"+QString::number(market_net+1));
-        record->append(u8"\t交易配置:link"+QString::number(trading_net+1));
+        record->appendPlainText(u8"网络配置:");
+        record->appendPlainText(u8"\t市场配置:link"+QString::number(market_net+1));
+        record->appendPlainText(u8"\t交易配置:link"+QString::number(trading_net+1));
+
+        record->appendPlainText(u8"被监控的合约:");
+        for(auto& i:*trade_handler::instr_set){
+            record->appendPlainText("\t"+i->instrment_id);
+        }
         /*TO-DO*/
-/*
+
         trade_handler::trade_switch=true;
         trade_handler::strategy->set_name(name.toStdString());
         trade_handler::strategy->setAnnual_interest_rate(r);
@@ -227,17 +234,27 @@ void InitWindow::on_trading_start(){
         trade_handler::strategy->setStock_impact_cost(stock_impact_cost);
         trade_handler::strategy->setIndex_track_error_rate(stock_index_error);
         trade_handler::strategy->setCost_borrow_spread(borrowing_cost);
-*/
-        //trade_handler::strategy-
+
+        trade_handler::strategy->set_valid_strategy(true);
+        trade_handler::trade_switch=true;
     }
 }
 void InitWindow::on_trading_stop(){
     if(trading_status==0)return;
     trading_status = 0;
-    _tradingpage->get_recordtext()->append(u8"交易结束");
-    _tradingpage->get_recordtext()->append(u8"------------------------------------------------");
+    _tradingpage->get_recordtext()->appendPlainText(u8"交易结束");
+    _tradingpage->get_recordtext()->appendPlainText(u8"------------------------------------------------");
 
     /*TO-DO*/
-
-
+    trade_handler::strategy->set_valid_strategy(false);
+    trade_handler::trade_switch=false;
+}
+void InitWindow::addorder_request(QString id, QString time, QString status){
+    emit addorder(id,time,status);
+}
+void InitWindow::setorderstatus_request(QString id, QString status){
+    emit setorderstatus(id,status);
+}
+void InitWindow::appendText_request(QString text){
+    emit appendText(text);
 }

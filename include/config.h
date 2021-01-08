@@ -25,6 +25,9 @@ class env_config{
     char* investor_id;
     char* broker_id;
 
+    std::string ctp_version;
+    std::string trading_day;
+
     public:
     static char* local_md_config[5];
     static char* local_td_config[5];
@@ -40,6 +43,9 @@ class env_config{
         db_name=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
         investor_id=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
         broker_id=(char*)malloc(sizeof(char)*ADDR_MAX_SIZE);
+
+        ctp_version=std::string("v1.0.0");
+        trading_day=std::string("2020-01-04");
 
         set_td_front_addr(td);
         set_md_front_addr(md);
@@ -102,6 +108,18 @@ class env_config{
     }
     int set_broker_id(const char* i){
         return strcpy(broker_id,i)!=NULL;
+    }
+    void set_ctp_version(std::string s){
+        ctp_version=s;
+    }
+    std::string get_ctp_version(){
+        return ctp_version;
+    }
+    void set_trading_day(std::string s){
+        trading_day=s;
+    }
+    std::string get_trading_day(){
+        return trading_day;
     }
 };
 typedef env_config* econf_ptr;

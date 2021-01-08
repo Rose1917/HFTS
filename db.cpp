@@ -1,6 +1,7 @@
 #include "include/common.h"
 using namespace std;
-
+extern econf_ptr econf;
+pthread_mutex_t mutex_db=PTHREAD_MUTEX_INITIALIZER;
 /*The Grammar:
     CREATE TABLE TABLE_NAME;*/
     /*USE TABLE_NAME*/
@@ -24,6 +25,7 @@ using namespace std;
 //Hhcl199904020
 SAConnection* hfts_db::con=nullptr;
 int hfts_db::init_db(char* host_name,char* user_name,char* pwd,char* db_name){
+    pthread_mutex_lock(&mutex_db);
     //connect to the database
     try {
         #ifdef DEBUG
@@ -49,12 +51,13 @@ int hfts_db::init_db(char* host_name,char* user_name,char* pwd,char* db_name){
         get_connection()->Rollback();
         printf("%s\n", x.ErrText().GetMultiByteChars());
     }
-
+    pthread_mutex_unlock(&mutex_db);
     //test the result
     if(get_connection()->isConnected()){
         log_error("Connect to the data base success");
         return 0;
     }else return -1;
+
 }
 //shutdown the database connection
 int hfts_db::shutdown_db(){
@@ -130,6 +133,10 @@ bool hfts_db::is_table_exist(char* table_name){
 //create the future contract
 //Check if the contract exists in the database,if not create one.
 int hfts_db::create_contract(char* contract_name){
+    if(!get_connection()->isAlive()||!get_connection()->isConnected()){
+        init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
+    }
+
     if(!is_table_exist(contract_name)){
         log_info("The contract table does not exist,now registering a new one");
         char final_cmd[100];
@@ -146,6 +153,9 @@ int hfts_db::create_contract(char* contract_name){
 }
 //create the index table in index_name
 int hfts_db::create_index(char* index_name){
+    if(!get_connection()->isAlive()||!get_connection()->isConnected()){
+        init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
+    }
     if(!is_table_exist(index_name)){
         char final_cmd[100];
         sprintf(final_cmd,"CREATE TABLE %s(UPDATE_TIME DATETIME(3),LAST_PRICE DOUBLE,PRIMARY KEY(UPDATE_TIME))",index_name);
@@ -163,6 +173,10 @@ int hfts_db::create_index(char* index_name){
 }
 //insert the market data.
 int hfts_db::insert_depth_db(CThostFtdcDepthMarketDataField *data){
+    pthread_mutex_lock(&mutex_db);
+    if(!get_connection()->isAlive()||!get_connection()->isConnected()){
+        init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
+    }
     char prepare_cmd[500];
     sprintf(prepare_cmd,"INSERT INTO %s (UPDATE_TIME,LAST_PRICE,ASK_PRICE,ASK_VOLUME,BID_PRICE,BID_VOLUME,OPEN_INTEREST,TURN_OVER) VALUES (:1,:2,:3,:4,:5,:6,:7,:8)",data->InstrumentID);
     //YYYY-MM-DD HH:MM:SS
@@ -182,9 +196,14 @@ int hfts_db::insert_depth_db(CThostFtdcDepthMarketDataField *data){
     catch (SAException &e){
         printf("%s\n", e.ErrText().GetMultiByteChars());
     }
+    pthread_mutex_unlock(&mutex_db);
     
 }
 int hfts_db::insert_index_data(index_t index_type,index_eledata e){
+    pthread_mutex_lock(&mutex_db);
+    if(!get_connection()->isAlive()||!get_connection()->isConnected()){
+        init_db(econf->get_host_name(),econf->get_db_user(),econf->get_db_pwd(),econf->get_db_name());
+    }
     char* index_name[4]={"shangzheng50","zhongzheng500","hushen300"};
     char prepare_cmd[500];
     sprintf(prepare_cmd,"INSERT INTO %s (UPDATE_TIME,LAST_PRICE) VALUES (:1,:2)",index_name[index_type]);
@@ -197,4 +216,5 @@ int hfts_db::insert_index_data(index_t index_type,index_eledata e){
     catch (SAException &e){
         printf("%s\n", e.ErrText().GetMultiByteChars());
     }
+    pthread_mutex_unlock(&mutex_db);
 }

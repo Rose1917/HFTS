@@ -11,7 +11,7 @@ extern InitWindow* init_window;
 qreal share_index::shangzheng50_count=0.0;
 qreal share_index::zhongzheng500_count=0.0;
 qreal share_index::hushen300_count=0.0;
-
+pthread_mutex_t mutex_x=PTHREAD_MUTEX_INITIALIZER;
 bool operator ==(const SADateTime s1,const SADateTime s2){
   return (SAString)s1==(SAString)s2&&s1.Fraction()==s2.Fraction();
 }
@@ -96,6 +96,11 @@ size_t write_to_buffer(void *buffer, size_t size, size_t nmemb, void *userp)
     //Compare the date time 
     if((*update_time)==(*index_buffer.last_tick_time[index_type])){
       cout<<"redunt data"<<endl;
+
+      pthread_mutex_lock(&mutex_x);
+      trade_handler::make_decision(index_type,update_val);
+      pthread_mutex_unlock(&mutex_x);
+
       index_buffer.is_updated[index_type]=false;
     } 
     else{
@@ -103,6 +108,9 @@ size_t write_to_buffer(void *buffer, size_t size, size_t nmemb, void *userp)
       index_buffer.is_updated[index_type]=true;
       *(index_buffer.last_tick_time[index_type])=*update_time;
       index_buffer.val[index_type]=update_val;
+      pthread_mutex_lock(&mutex_x);
+      trade_handler::make_decision(index_type,update_val);
+      pthread_mutex_unlock(&mutex_x);
       free(update_time);
     }
     return size*nmemb;
@@ -133,6 +141,8 @@ int share_index::update_val(){
 
         /* always cleanup */
         curl_easy_cleanup(curl);
+
+    //to-do:we do not check if the data is valid which could be unberable in practice
 
     //Got the data and store it in the list
     if(index_buffer.is_updated[type]){

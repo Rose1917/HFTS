@@ -16,11 +16,15 @@ ACTION_TYPE index_strategy::decision(double future_price,double index_val,unsign
     upper_edge=ideal_price+arbitrage_cost;
     lower_edge=ideal_price-arbitrage_cost;
 
+    cout<<"the upper edge: "<<upper_edge<<endl;
+    cout<<"the lower edge: "<<lower_edge<<endl;
+    cout<<"the future price: "<<future_price<<endl;
+
     //In this case,the current future price is too high.we should go short
     if(future_price>upper_edge)
         return SELL;
     //In this case,the current future price is too low,we should go long
-    if(future_price<upper_edge)
+    if(future_price<lower_edge)
         return BUY;
     //In this case,the current future price is reasonable,we do nothing
     return NONE;

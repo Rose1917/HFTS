@@ -60,6 +60,10 @@ public:
     InitWindow();
 
     int trading_status;
+
+    void addorder_request(QString id,QString time,QString status);
+    void setorderstatus_request(QString id,QString status);
+    void appendText_request(QString text);
 private slots:
 
     void on_data_view_clicked();
@@ -85,7 +89,10 @@ private:
     void init_strategy_page();
     void init_account_page();
     void init_order_page();
-
+signals:
+    void addorder(QString id,QString time,QString status);
+    void setorderstatus(QString id,QString status);
+    void appendText(QString text);
 };
 
 #endif // INITWINDOW_H

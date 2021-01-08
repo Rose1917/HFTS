@@ -11,9 +11,12 @@ class orderpageitem : public QFrame
     Q_OBJECT
 public:
     orderpageitem();
+    orderpageitem* setvalues(QString name,QString time,QString status);
+    void setorderstatus(QString s);
 private:
     QLabel* name;
     QLabel* time;
+    QLabel* status;
 
     clickablelabel* maxinumlabel;
     clickablelabel* deletelabel;

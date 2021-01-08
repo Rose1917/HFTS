@@ -58,9 +58,6 @@ int main(int argc, char *argv[])
 	//ix.update_val();
 
     //trader_init();
-	
-
-    //insert_order();
     //a.exec();
 
     //main_init();
@@ -74,8 +71,8 @@ int main(int argc, char *argv[])
 int general_init(){
     //Got the configuration object
     econf=new env_config();
-    econf->set_md_front_addr(env_config::local_md_config[LINK5]);
-    econf->set_td_front_addr(env_config::local_td_config[LINK5]);
+    econf->set_md_front_addr(env_config::local_md_config[LINK1]);
+    econf->set_td_front_addr(env_config::local_td_config[LINK1]);
 
     //connect to the database
     log_str("=====INIT THE DATABASE=====",YELLOW_STR);
@@ -145,6 +142,7 @@ int login_trader(string user_name,string pwd){
 	//set the id into the memmory
 	econf->set_broker_id(login_field.BrokerID);
 	econf->set_investor_id(login_field.UserID);
+    print_version();
 
     if(system_status::is_login_success){
         system_status::wait_code_till_true(CONFIRM);
@@ -221,6 +219,8 @@ void menu_view(){
 void print_version(){
 	cout<<"CTP version info:"<<trade_api->GetApiVersion()<<endl;
 	cout<<"The trading day:"<<trade_api->GetTradingDay()<<endl;
+    econf->set_ctp_version(string(trade_api->GetApiVersion()));
+    econf->set_trading_day(string(trade_api->GetTradingDay()));
 }
 void print_prompt(){
 	cout<<"You have input an illegal command"<<endl;

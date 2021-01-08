@@ -3,6 +3,7 @@
 #include<QFile>
 #include<QDebug>
 #include<QDateTime>
+#include"common.h"
 stratgymanagepage::stratgymanagepage()
 {
     QScrollArea *itempage = new QScrollArea();
@@ -23,8 +24,11 @@ stratgymanagepage::stratgymanagepage()
     nameFilters << "*.htfscfg";
     QStringList files = dir.entryList(nameFilters, QDir::Files|QDir::Readable, QDir::Name);
 
+    QString basepath = QDir::currentPath();
+    QString dirpath = basepath+"/stratgies/";
+
     for(int i=0;i<files.size();i++){
-        QString fullpath = "./stratgies/"+files.at(i);
+        QString fullpath = dirpath+files.at(i);
         //qDebug()<<fullpath;
         QFile file(fullpath);
         file.open(QIODevice::ReadOnly);
@@ -83,8 +87,20 @@ void stratgymanagepage::on_add_clicked(){
     inputiitemtitle->showincenter();
 }
 void stratgymanagepage::on_item_submit(){
+    QString basepath = QDir::currentPath();
+    QString dirpath = basepath+"/stratgies/";
+
+    QDir dir;
+    if(!dir.exists(dirpath)){
+        dir.mkdir(dirpath);
+    }
+
     QString data_time = QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
-    QString path = "./stratgies/"+data_time+".htfscfg";
+    QString path = dirpath+data_time+".htfscfg";
+
+    log_error("little_stratgymanageitem::on_change()");
+    std::cout<<dirpath.toStdString().data()<<std::endl;
+
     QFile file(path);
     file.open(QIODevice::WriteOnly);
     QDataStream ds(&file);

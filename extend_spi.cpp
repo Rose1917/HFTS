@@ -2,7 +2,7 @@
 using namespace std;
 //common buffer
 char common_buffer[1000];
-
+extern InitWindow* init_window;
 extend_spi::extend_spi(CThostFtdcTraderApi* api){
 	setTapi(api);
 }
@@ -89,6 +89,12 @@ void extend_spi::OnRtnOrder(CThostFtdcOrderField *pOrder){
     char dst[10000];
     GbkToUtf8(pOrder->StatusMsg,strlen(pOrder->StatusMsg),dst,10000);
     log_info(dst);
+    cout<<"requet id:"<<pOrder->RequestID<<endl;
+
+    unsigned int request_id;
+    sscanf(pOrder->OrderRef,"%d",&request_id);
+    init_window->setorderstatus_request(QString::number(request_id),QString::fromStdString(dst));
+
 }
 void extend_spi::OnRspOrderInsert(CThostFtdcInputOrderField *pInputOrder, CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast){
 

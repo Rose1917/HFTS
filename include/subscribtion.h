@@ -20,6 +20,7 @@ class instrument_item{
     std::list<future_eledata*>* prices;
     price_write_index i;
     unsigned int valid_c;
+    future_val last_val;
 
     public:instrument_item(char* name){
         instr_id.assign(name);
@@ -30,6 +31,7 @@ class instrument_item{
     void insert_element_data(future_elemdata* e){
         if(prices->size()==market_buffer_size)prices->pop_front();
         prices->push_back(e);
+        last_val=e->value;
     }
     std::list<future_eledata*>* get_prices(){
         return prices;
@@ -39,6 +41,12 @@ class instrument_item{
     }
     unsigned int get_valid_count(){
         return valid_c;
+    }
+    future_val get_last_val(){
+        return last_val;
+    }
+    void set_last_val(future_val f){
+        last_val=f;
     }
 };
 
@@ -53,6 +61,7 @@ class instrument_handler{
     //@Description:if found return the address of object,else return nullptr
     //@Param:the instrument id
     static instrument_item* get_instrument_by_id(instr_str name);
+    static instrument_item* get_instrument_by_id(std::string name);
 
     /*static int insert_multi_instru(instr_str instr_name[]);
     static int remove_multi_instru(instr_str instr_name[]);

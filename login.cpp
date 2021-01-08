@@ -108,7 +108,7 @@ void Login::paintContent(){
     // 提示
     tips = new QLabel();
     tips->setObjectName("tips");
-    tips->setText("Forget your passwd?<a href='www.baidu.com' style='color:#ffa502'>Click here.<\a>");
+    tips->setText("Forget your passwd?<a href='http://simnow.com.cn/static/resetPWDPage.action' style='color:#ffa502'>Click here.<\a>");
     tips->setOpenExternalLinks(true);
     // 布局
     formLayout->addWidget(tips);
@@ -244,12 +244,15 @@ void Login::signIn(){
     if(!res){
         passwdInput->clear();
         failTips->setText("Login success");
+        //insert_order();
         //this->close();
+
         nontitle* n = new nontitle();
         init_window=new InitWindow();
         main_init();
         n->setContent(init_window);
         n->showincenter();
+
         //Get into the main menu
 
     }

@@ -45,7 +45,7 @@ public:index_strategy(){
     annual_bonus_rate = 0.03;
     interval_month_lenth = 0;
 
-    security_factor=1.0;
+    security_factor=0.01;
 
     future_commission = 0.2;
     impact_cost = 0.2;

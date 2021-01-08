@@ -64,3 +64,13 @@ instrument_item* instrument_handler::get_instrument_by_id(instr_str name){
 
     return p;
 }
+instrument_item* instrument_handler::get_instrument_by_id(std::string s){
+    instrument_item* p;
+
+    if(instrument_handler::inst_set->find(s)==instrument_handler::inst_set->end()){
+        log_error("INSERT DEPTH DATA:THE TARGET OBJECT NOT FOUND");
+        return nullptr;
+    }else p=instrument_handler::inst_set->find(s)->second;
+
+    return p;
+}

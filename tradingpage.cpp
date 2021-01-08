@@ -15,11 +15,11 @@ tradingpage::tradingpage()
     toollayout = new QHBoxLayout();
     recordlayout = new QHBoxLayout();
 
-    recordtext = new QTextEdit();
+    recordtext = new QPlainTextEdit();
     recordtext->setFont(QFont(u8"黑体",10));
     recordtext->setReadOnly(true);
     recordtext->setStyleSheet("border-style:solid;border-width:2;border-color:rgb(255,255,255)");
-    recordtext->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    //recordtext->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
     stratgyselector->setFont(QFont(u8"黑体",14));
 
@@ -40,11 +40,12 @@ tradingpage::tradingpage()
     connect(start,SIGNAL(clicked()),this,SLOT(on_start()));
     connect(stop,SIGNAL(clicked()),this,SLOT(on_stop()));
     connect(clear,SIGNAL(clicked()),this,SLOT(on_clear()));
+    //connect(recordtext,SIGNAL(cursorPositionChanged()),this,SLOT(autoscroll()));
 }
 QComboBox* tradingpage::get_stratgyselector(){
     return stratgyselector;
 }
-QTextEdit* tradingpage::get_recordtext(){
+QPlainTextEdit* tradingpage::get_recordtext(){
     return recordtext;
 }
 void tradingpage::on_start(){
@@ -55,4 +56,7 @@ void tradingpage::on_stop(){
 }
 void tradingpage::on_clear(){
     recordtext->clear();
+}
+void tradingpage::appendText(QString text){
+    recordtext->appendPlainText(text);
 }

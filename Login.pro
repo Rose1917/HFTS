@@ -63,7 +63,7 @@ HEADERS += \ \
     include/tradingpage.h \
     include/webconfig.h \
     include/datapageitemshowmore.h \
-
+    include/trade_handler.h \
 
 FORMS += \
     login.ui \
