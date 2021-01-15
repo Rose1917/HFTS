@@ -22,7 +22,7 @@
 
 * Screenshots of running:
 
-  ![登录](./Pics/Login.jpg)
+  ![](./Pics/Login.jpg)
 
   ![](./Pics/Market_data.png)
 
