@@ -20,19 +20,19 @@
   make run;
   ```
 
-* Screenshots of running:
+* Screenshots of running:Pics/Login.jpg
 
-  ![](./Pics/Login.jpg)
+  ![](Pics/Login.jpg)
 
-  ![](./Pics/Market_data.png)
+  ![](Pics/Market_data.png)
 
-  ![](./Pics/trade.png)
+  ![](Pics/trade.png)
 
-  ![](./Pics/strategy.png)
+  ![](Pics/strategy.png)
 
-  ![](./Pics/order.png)
+  ![](Pics/order.png)
 
-  ![](./Pics/account.png)
+  ![](Pics/account.png)
 
 #### 4.Tips && QA
 
