@@ -20,7 +20,7 @@
   make run;
   ```
 
-* Screenshots of running:Pics/Login.jpg
+* Screenshots of running:
 
   ![](Pics/Login.jpg)
 
@@ -29,7 +29,7 @@
   ![](Pics/trade.png)
 
   ![](Pics/strategy.png)
-
+  
   ![](Pics/order.png)
 
   ![](Pics/account.png)
