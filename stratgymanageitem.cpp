@@ -17,6 +17,7 @@ stratgymanageitem::stratgymanageitem()
     stock_impact_cost = 0;
     stock_index_error = 0;
     borrowing_cost = 0;
+    security = 0;
 
     title = new editlabel();
 
@@ -38,6 +39,7 @@ stratgymanageitem::stratgymanageitem()
     label_stock_impact_cost = new QLabel(u8"股票买卖冲击成本");
     label_stock_index_error = new QLabel(u8"股票指数跟踪误差");
     label_borrowing_cost = new QLabel(u8"借贷利差成本");
+    label_security = new QLabel(u8"安全系数");
 
     lineedit_r = new QLineEdit("0.0");
     lineedit_q = new QLineEdit("0.0");
@@ -49,6 +51,7 @@ stratgymanageitem::stratgymanageitem()
     lineedit_stock_impact_cost = new QLineEdit("0.0");
     lineedit_stock_index_error = new QLineEdit("0.0");
     lineedit_borrowing_cost = new QLineEdit("0.0");
+    lineedit_security = new QLineEdit("0.0");
 
     label_r->setMinimumWidth(180);
     label_q->setMinimumWidth(180);
@@ -60,6 +63,7 @@ stratgymanageitem::stratgymanageitem()
     label_stock_impact_cost->setMinimumWidth(180);
     label_stock_index_error->setMinimumWidth(180);
     label_borrowing_cost->setMinimumWidth(180);
+    label_security->setMinimumWidth(180);
 
     vlayout = new QVBoxLayout();
     hlayout_r = new QHBoxLayout();
@@ -103,6 +107,10 @@ stratgymanageitem::stratgymanageitem()
     hlayout_borrowing_cost->addWidget(label_borrowing_cost);
     hlayout_borrowing_cost->addWidget(lineedit_borrowing_cost);
 
+    hlayout_security = new QHBoxLayout();
+    hlayout_security->addWidget(label_security);
+    hlayout_security->addWidget(lineedit_security);
+
     vlayout->addWidget(title);
     vlayout->addWidget(split_line_1);
     vlayout->addLayout(hlayout_r);
@@ -115,10 +123,11 @@ stratgymanageitem::stratgymanageitem()
     vlayout->addLayout(hlayout_stock_impact_cost);
     vlayout->addLayout(hlayout_stock_index_error);
     vlayout->addLayout(hlayout_borrowing_cost);
+    vlayout->addLayout(hlayout_security);
     vlayout->addWidget(split_line_2);
 
     submit = new QPushButton(u8"确定");
-    submit->setStyleSheet("background-color: rgb(255, 200, 64);border-radius: 5px;color: rgb(47,53,46);font: 14pt '黑体';");
+    submit->setStyleSheet("background-color: rgb(255, 200, 64);border-radius: 5px;color: rgb(47,53,46);font: 12pt '黑体';");
     submit->setMinimumHeight(30);
     submit->setMinimumWidth(120);
     submit->setMaximumWidth(160);
@@ -130,7 +139,7 @@ stratgymanageitem::stratgymanageitem()
 
     setFixedSize(400, 460);
 
-    this->setStyleSheet(QStringLiteral("background-color:rgb(44,44,44);color:rgb(255,255,255);font: 12pt '黑体';"));
+    this->setStyleSheet(QStringLiteral("background-color:rgb(44,44,44);color:rgb(255,255,255);font: 10pt '黑体';"));
 
 
     connect(submit,SIGNAL(clicked()),this,SLOT(on_submit_clicked()));
@@ -140,7 +149,7 @@ void stratgymanageitem::on_submit_clicked(){
     emit signal_submit();
     qDebug()<<"submit";
 }
-void stratgymanageitem::setvalues(QString n,double _r, double _q, double _futures_commission, double _futures_cost, double _stock_commission, double _stock_cost, double _stamp_duty, double _stock_impact_cost, double _stock_index_error, double _borrowing_cost){
+void stratgymanageitem::setvalues(QString n,double _r, double _q, double _futures_commission, double _futures_cost, double _stock_commission, double _stock_cost, double _stamp_duty, double _stock_impact_cost, double _stock_index_error, double _borrowing_cost,double _security){
     name = n;
     r = _r;
     q = _q;
@@ -152,6 +161,7 @@ void stratgymanageitem::setvalues(QString n,double _r, double _q, double _future
     stock_impact_cost = _stock_impact_cost;
     stock_index_error = _stock_index_error;
     borrowing_cost = _borrowing_cost;
+    security = _security;
 
     title->setText(name);
     lineedit_r->setText(QString::number(r));
@@ -164,6 +174,7 @@ void stratgymanageitem::setvalues(QString n,double _r, double _q, double _future
     lineedit_stock_impact_cost->setText(QString::number(stock_impact_cost));
     lineedit_stock_index_error->setText(QString::number(stock_index_error));
     lineedit_borrowing_cost->setText(QString::number(borrowing_cost));
+    lineedit_security->setText(QString::number(security));
 }
 
 QString stratgymanageitem::get_r(){
@@ -198,4 +209,7 @@ QString stratgymanageitem::get_borrowing_cost(){
 }
 QString stratgymanageitem::get_title(){
     return title->text();
+}
+QString stratgymanageitem::get_security(){
+    return lineedit_security->text();
 }

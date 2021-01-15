@@ -13,7 +13,7 @@ accountpage::accountpage()
     passwdchange->setOpenExternalLinks(true);
 
     sponsorus = new clickablelabel(u8"资助我们");
-    money = new QLabel(u8"余额0.0");
+    money = new QLabel(u8"余额16900000");
     ctpversion = new QLabel(QString::fromStdString(econf->get_ctp_version()));
     ctpversion->setStyleSheet("color:rgb(175,175,175)");
 

@@ -1,5 +1,6 @@
 #include "include/common.h"
 using namespace std;
+extern InitWindow* init_window;
 ACTION_TYPE index_strategy::decision(double future_price,double index_val,unsigned month_length){
     interval_month_lenth=month_length;
 
@@ -16,9 +17,8 @@ ACTION_TYPE index_strategy::decision(double future_price,double index_val,unsign
     upper_edge=ideal_price+arbitrage_cost;
     lower_edge=ideal_price-arbitrage_cost;
 
-    cout<<"the upper edge: "<<upper_edge<<endl;
-    cout<<"the lower edge: "<<lower_edge<<endl;
-    cout<<"the future price: "<<future_price<<endl;
+    init_window->appendText_request("\tthe upper edge:"+QString::number(upper_edge));
+    init_window->appendText_request("\tthe lower edge:"+QString::number(lower_edge));
 
     //In this case,the current future price is too high.we should go short
     if(future_price>upper_edge)

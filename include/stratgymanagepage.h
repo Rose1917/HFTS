@@ -31,6 +31,7 @@ private slots:
     void on_add_clicked();
     void on_item_submit();
     void on_delete_item();
+    void on_item_stratgy_changed();
 signals:
     void stratgy_changed();
 };

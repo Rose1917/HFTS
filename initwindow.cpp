@@ -186,6 +186,7 @@ void InitWindow::on_trading_start(){
         double stock_impact_cost;//股票买卖冲击成本
         double stock_index_error;//股票指数跟踪误差
         double borrowing_cost;//借贷利差成本
+        double security;
         QString name;
         nowstratgy->getvalues(&name,
                               &r,
@@ -197,18 +198,20 @@ void InitWindow::on_trading_start(){
                               &stamp_duty,
                               &stock_impact_cost,
                               &stock_index_error,
-                              &borrowing_cost);
+                              &borrowing_cost,
+                              &security);
         record->appendPlainText(u8"现在正在使用的策略为:"+name);
-        record->appendPlainText(u8"\t年利率\t\t\t"+QString::number(r));
-        record->appendPlainText(u8"\t年红利\t\t\t"+QString::number(q));
-        record->appendPlainText(u8"\t期货双边手续费\t\t"+QString::number(futures_commission));
-        record->appendPlainText(u8"\t期货买卖冲击成本\t\t"+QString::number(futures_cost));
-        record->appendPlainText(u8"\t股票买卖双边手续费\t"+QString::number(stock_commission));
-        record->appendPlainText(u8"\t股票买卖冲击成本\t\t"+QString::number(stock_cost));
-        record->appendPlainText(u8"\t股票交易印花税\t\t"+QString::number(stamp_duty));
-        record->appendPlainText(u8"\t股票买卖冲击成本\t\t"+QString::number(stock_impact_cost));
-        record->appendPlainText(u8"\t股票指数跟踪误差\t\t"+QString::number(stock_index_error));
-        record->appendPlainText(u8"\t借贷利差成本\t\t"+QString::number(borrowing_cost));
+        record->appendPlainText(u8"\t年利率              "+QString::number(r));
+        record->appendPlainText(u8"\t年红利              "+QString::number(q));
+        record->appendPlainText(u8"\t期货双边手续费      "+QString::number(futures_commission));
+        record->appendPlainText(u8"\t期货买卖冲击成本    "+QString::number(futures_cost));
+        record->appendPlainText(u8"\t股票买卖双边手续费  "+QString::number(stock_commission));
+        record->appendPlainText(u8"\t股票买卖冲击成本    "+QString::number(stock_cost));
+        record->appendPlainText(u8"\t股票交易印花税      "+QString::number(stamp_duty));
+        record->appendPlainText(u8"\t股票买卖冲击成本    "+QString::number(stock_impact_cost));
+        record->appendPlainText(u8"\t股票指数跟踪误差    "+QString::number(stock_index_error));
+        record->appendPlainText(u8"\t借贷利差成本        "+QString::number(borrowing_cost));
+        record->appendPlainText(u8"\t安全系数            "+QString::number(borrowing_cost));
         int market_net;
         int trading_net;
         _accountpage->getnetconf(&market_net,&trading_net);
@@ -234,6 +237,7 @@ void InitWindow::on_trading_start(){
         trade_handler::strategy->setStock_impact_cost(stock_impact_cost);
         trade_handler::strategy->setIndex_track_error_rate(stock_index_error);
         trade_handler::strategy->setCost_borrow_spread(borrowing_cost);
+        trade_handler::strategy->setSecurity_factor(security);
 
         trade_handler::strategy->set_valid_strategy(true);
         trade_handler::trade_switch=true;

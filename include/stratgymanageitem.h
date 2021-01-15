@@ -25,7 +25,8 @@ public:
               double _stamp_duty,
               double _stock_impact_cost,
               double _stock_index_error,
-              double _borrowing_cost);
+              double _borrowing_cost,
+              double _security);
     QString get_title();
     QString get_r();
     QString get_q();
@@ -37,6 +38,7 @@ public:
     QString get_stock_impact_cost();
     QString get_stock_index_error();
     QString get_borrowing_cost();
+    QString get_security();
 private:
     double r;//年利率
     double q;//年红利
@@ -48,6 +50,7 @@ private:
     double stock_impact_cost;//股票买卖冲击成本
     double stock_index_error;//股票指数跟踪误差
     double borrowing_cost;//借贷利差成本
+    double security;//security factor
     QString name;
 
     editlabel* title;
@@ -65,6 +68,7 @@ private:
     QLabel* label_stock_impact_cost;
     QLabel* label_stock_index_error;
     QLabel* label_borrowing_cost;
+    QLabel* label_security;
 
     QLineEdit* lineedit_r;
     QLineEdit* lineedit_q;
@@ -76,6 +80,7 @@ private:
     QLineEdit* lineedit_stock_impact_cost;
     QLineEdit* lineedit_stock_index_error;
     QLineEdit* lineedit_borrowing_cost;
+    QLineEdit* lineedit_security;
 
     QHBoxLayout* hlayout_r;
     QHBoxLayout* hlayout_q;
@@ -87,6 +92,7 @@ private:
     QHBoxLayout* hlayout_stock_impact_cost;
     QHBoxLayout* hlayout_stock_index_error;
     QHBoxLayout* hlayout_borrowing_cost;
+    QHBoxLayout* hlayout_security;
 
     QPushButton* submit;
     QVBoxLayout* vlayout;

@@ -25,7 +25,8 @@ public:
               double* _stamp_duty,
               double* _stock_impact_cost,
               double* _stock_index_error,
-              double* _borrowing_cost);
+              double* _borrowing_cost,
+              double* _security);
     void setvalues(
               QString _n,
               double _r,
@@ -37,7 +38,8 @@ public:
               double _stamp_duty,
               double _stock_impact_cost,
               double _stock_index_error,
-              double _borrowing_cost);
+              double _borrowing_cost,
+              double _security);
     QString getpath();
     QString getname();
 private:
@@ -70,13 +72,16 @@ private:
     double stock_impact_cost;//股票买卖冲击成本
     double stock_index_error;//股票指数跟踪误差
     double borrowing_cost;//借贷利差成本
+    double security;
     QString name;
 signals:
     void signal_delete();
+    void signal_stratgy_changed();
 private slots:
     void on_maxinum_clicked();
     void on_delete_clicked();
     void on_change();
+
 };
 
 #endif // LITTLE_STRATGYMANAGEITEM_H

@@ -244,15 +244,14 @@ void Login::signIn(){
     if(!res){
         passwdInput->clear();
         failTips->setText("Login success");
-        //insert_order();
-        //this->close();
+        this->close();
+
 
         nontitle* n = new nontitle();
         init_window=new InitWindow();
         main_init();
         n->setContent(init_window);
         n->showincenter();
-
         //Get into the main menu
 
     }

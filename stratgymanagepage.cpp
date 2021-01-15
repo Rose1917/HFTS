@@ -10,7 +10,7 @@ stratgymanagepage::stratgymanagepage()
 
     defaultitem = new stratgymanageitemdefault();
     inputitem = new stratgymanageitem();
-    inputitem->setvalues("default",0,0,0,0,0,0,0,0,0,0);
+    inputitem->setvalues("default",0,0,0,0,0,0,0,0,0,0,0);
     inputiitemtitle = new nontitle();
     inputiitemtitle->setContent(inputitem);
 
@@ -50,6 +50,7 @@ stratgymanagepage::stratgymanagepage()
             double stock_impact_cost;//股票买卖冲击成本
             double stock_index_error;//股票指数跟踪误差
             double borrowing_cost;//借贷利差成本
+            double security;
             QString name;
             ds>>name
               >>r
@@ -61,9 +62,11 @@ stratgymanagepage::stratgymanagepage()
               >>stamp_duty
               >>stock_impact_cost
               >>stock_index_error
-              >>borrowing_cost;
-            l->setvalues(name,r,q,futures_commission,futures_cost,stock_commission,stock_cost,stamp_duty,stock_impact_cost,stock_index_error,borrowing_cost);
+              >>borrowing_cost
+              >>security;
+            l->setvalues(name,r,q,futures_commission,futures_cost,stock_commission,stock_cost,stamp_duty,stock_impact_cost,stock_index_error,borrowing_cost,security);
             connect(l,SIGNAL(signal_delete()),this,SLOT(on_delete_item()));
+            connect(l,SIGNAL(signal_stratgy_changed()),this,SLOT(on_item_stratgy_changed()));
             stratgies.append(l);
         }
     }
@@ -83,7 +86,7 @@ stratgymanagepage::stratgymanagepage()
     connect(inputitem,SIGNAL(signal_submit()),this,SLOT(on_item_submit()));
 }
 void stratgymanagepage::on_add_clicked(){
-    inputitem->setvalues("default",0,0,0,0,0,0,0,0,0,0);
+    inputitem->setvalues("default",0,0,0,0,0,0,0,0,0,0,0);
     inputiitemtitle->showincenter();
 }
 void stratgymanagepage::on_item_submit(){
@@ -115,6 +118,7 @@ void stratgymanagepage::on_item_submit(){
     double stock_impact_cost;//股票买卖冲击成本
     double stock_index_error;//股票指数跟踪误差
     double borrowing_cost;//借贷利差成本
+    double security;
     QString name;
     name = inputitem->get_title();
     r = inputitem->get_r().toDouble();
@@ -127,6 +131,7 @@ void stratgymanagepage::on_item_submit(){
     stock_impact_cost = inputitem->get_stock_impact_cost().toDouble();
     stock_index_error = inputitem->get_stock_index_error().toDouble();
     borrowing_cost = inputitem->get_borrowing_cost().toDouble();
+    security = inputitem->get_security().toDouble();
 
     ds.writeRawData("htfs",4);
     ds<<name;
@@ -140,6 +145,7 @@ void stratgymanagepage::on_item_submit(){
     ds<<stock_impact_cost;
     ds<<stock_index_error;
     ds<<borrowing_cost;
+    ds<<security;
 
     file.close();
 
@@ -147,8 +153,9 @@ void stratgymanagepage::on_item_submit(){
     itemslayout->removeWidget(defaultitem);
 
     little_stratgymanageitem* l = new little_stratgymanageitem(path);
-    l->setvalues(name,r,q,futures_commission,futures_cost,stock_commission,stock_cost,stamp_duty,stock_impact_cost,stock_index_error,borrowing_cost);
+    l->setvalues(name,r,q,futures_commission,futures_cost,stock_commission,stock_cost,stamp_duty,stock_impact_cost,stock_index_error,borrowing_cost,security);
     connect(l,SIGNAL(signal_delete()),this,SLOT(on_delete_item()));
+    connect(l,SIGNAL(signal_stratgy_changed()),this,SLOT(on_item_stratgy_changed()));
     stratgies.append(l);
     itemslayout->addWidget(l);
 
@@ -157,14 +164,20 @@ void stratgymanagepage::on_item_submit(){
 
     inputiitemtitle->close();
 
+
+
     emit stratgy_changed();
 }
 void stratgymanagepage::on_delete_item(){
     little_stratgymanageitem* l = qobject_cast<little_stratgymanageitem*>(sender());
+    stratgies.removeOne(l);
     QFile::remove(l->getpath());
     l->close();
     emit stratgy_changed();
 }
 QList<little_stratgymanageitem*> stratgymanagepage::get_stratgies(){
     return stratgies;
+}
+void stratgymanagepage::on_item_stratgy_changed(){
+    emit stratgy_changed();
 }

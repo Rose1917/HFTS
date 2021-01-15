@@ -19,7 +19,9 @@ class trade_handler{
 public:
     static switch_type trade_switch;
     static index_strategy* strategy;
+
     static unsigned int request_id;
+    static unsigned int strategy_application_id;
 
     static std::set<instrument_to_be_listened*> *instr_set;
     static std::set<instrument_to_be_listened*> *shangzheng_ins;

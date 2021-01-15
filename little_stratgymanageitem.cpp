@@ -92,11 +92,13 @@ void little_stratgymanageitem::on_change(){
     stock_impact_cost = s->get_stock_impact_cost().toDouble();
     stock_index_error = s->get_stock_index_error().toDouble();
     borrowing_cost = s->get_borrowing_cost().toDouble();
+    security = s->get_security().toDouble();
+    name = s->get_title();
 
     ds.writeRawData("htfs",4);
 
-    ds<<s->get_title();
-    label_stratgy_name->setText(s->get_title());
+    ds<<name;
+    label_stratgy_name->setText(name);
     ds<<r;
     ds<<q;
     ds<<futures_commission;
@@ -107,11 +109,13 @@ void little_stratgymanageitem::on_change(){
     ds<<stock_impact_cost;
     ds<<stock_index_error;
     ds<<borrowing_cost;
+    ds<<security;
 
     file.close();
     n->close();
+    emit signal_stratgy_changed();
 }
-void little_stratgymanageitem::getvalues(QString *_n, double *_r, double *_q, double *_futures_commission, double *_futures_cost, double *_stock_commission, double *_stock_cost, double *_stamp_duty, double *_stock_impact_cost, double *_stock_index_error, double *_borrowing_cost){
+void little_stratgymanageitem::getvalues(QString *_n, double *_r, double *_q, double *_futures_commission, double *_futures_cost, double *_stock_commission, double *_stock_cost, double *_stamp_duty, double *_stock_impact_cost, double *_stock_index_error, double *_borrowing_cost,double *_security){
     *_n = name;
     *_r = r;
     *_q = q;
@@ -123,9 +127,10 @@ void little_stratgymanageitem::getvalues(QString *_n, double *_r, double *_q, do
     *_stock_impact_cost = stock_impact_cost;
     *_stock_index_error = stock_index_error;
     *_borrowing_cost = borrowing_cost;
+    *_security = security;
 }
 
-void little_stratgymanageitem::setvalues(QString _n, double _r, double _q, double _futures_commission, double _futures_cost, double _stock_commission, double _stock_cost, double _stamp_duty, double _stock_impact_cost, double _stock_index_error, double _borrowing_cost){
+void little_stratgymanageitem::setvalues(QString _n, double _r, double _q, double _futures_commission, double _futures_cost, double _stock_commission, double _stock_cost, double _stamp_duty, double _stock_impact_cost, double _stock_index_error, double _borrowing_cost,double _security){
     name = _n;
     r = _r;
     q = _q;
@@ -137,6 +142,7 @@ void little_stratgymanageitem::setvalues(QString _n, double _r, double _q, doubl
     stock_impact_cost = _stock_impact_cost;
     stock_index_error = _stock_index_error;
     borrowing_cost = _borrowing_cost;
+    security = _security;
 
     label_stratgy_name->setText(name);
     stratgy->setvalues(name,
@@ -149,7 +155,8 @@ void little_stratgymanageitem::setvalues(QString _n, double _r, double _q, doubl
                        stamp_duty,
                        stock_impact_cost,
                        stock_index_error,
-                       borrowing_cost);
+                       borrowing_cost,
+                       security);
     layout->addLayout(hlayout_main);
 }
 QString little_stratgymanageitem::getpath(){

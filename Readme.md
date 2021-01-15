@@ -20,6 +20,20 @@
   make run;
   ```
 
+* Screenshots of running:
+
+  ![登录](./Pics/Login.jpg)
+
+  ![](./Pics/Market_data.png)
+
+  ![](./Pics/trade.png)
+
+  ![](./Pics/strategy.png)
+
+  ![](./Pics/order.png)
+
+  ![](./Pics/account.png)
+
 #### 4.Tips && QA
 
 * The whole project could run but no messages received.

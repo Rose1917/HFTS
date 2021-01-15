@@ -4,6 +4,7 @@ extern api* trade_api;
 
 //init
 unsigned int trade_handler::request_id=0;
+unsigned int trade_handler::strategy_application_id=0;
 switch_type trade_handler::trade_switch=false;
 index_strategy* trade_handler::strategy=new index_strategy();
 std::set<instrument_to_be_listened*>* trade_handler::instr_set=new std::set<instrument_to_be_listened*>();
@@ -87,27 +88,35 @@ void trade_handler::make_decision(index_t t,index_val val){
     log_error("trade_handler::make decision():point 2");
 
     ACTION_TYPE action;
-    QPlainTextEdit* record = init_window->_tradingpage->get_recordtext();
     for(auto& i:*target_ins_set){
         log_error("trade_handler::make decision():point 3");
+
+        init_window->appendText_request("the #"+QString::number(strategy_application_id++));
+        init_window->appendText_request("\tthe monitored instrument id:"+i->instrment_id);
+        init_window->appendText_request("\tcurrent future price:"+QString::number(i->model_tp->get_last_val()));
+        init_window->appendText_request("\tthe index price:"+QString::number(val));
+
         action=strategy->decision(i->model_tp->get_last_val(),val,i->gap_month);
 
 
-        //record->appendPlainText("instrument id:"+i->instrment_id);
         std::cout<<"instrument id:"<<i->instrment_id.toStdString()<<std::endl;
 
         char action_flag;
         if(action==BUY){
             std::cout<<"Action Buy"<<std::endl;
+            init_window->appendText_request("\taction buy");
             action_flag=THOST_FTDC_D_Buy;
         }
         else if(action==SELL){
+            init_window->appendText_request("\taction sell");
             std::cout<<"Action Sell"<<std::endl;
             action_flag=THOST_FTDC_D_Sell;
         }
         else{
+            init_window->appendText_request("\taction none");
             continue;
         }
+
         execute_trade(i->instrment_id.toStdString(),action_flag,i->model_tp->get_last_val());
         //record->appendPlainText("--------------------------------------------------");
     }
